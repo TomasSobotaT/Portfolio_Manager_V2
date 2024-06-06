@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PortfolioManager.Models.Models;
+namespace PortfolioManager.Models.Models.User;
 
 public class UserDto
 {

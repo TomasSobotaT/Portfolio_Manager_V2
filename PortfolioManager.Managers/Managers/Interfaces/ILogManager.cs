@@ -1,0 +1,6 @@
+﻿namespace PortfolioManager.Managers.Managers.Interfaces;
+
+public interface ILogManager
+{
+
+}

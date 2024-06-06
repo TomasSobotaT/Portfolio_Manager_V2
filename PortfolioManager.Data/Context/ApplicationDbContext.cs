@@ -5,13 +5,15 @@ using PortfolioManager.Base.Entities;
 namespace PortfolioManager.Data.Context;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext<UserEntity, IdentityRole<int>, int>(options)
+    : IdentityDbContext<UserEntity, IdentityRole<int>, int>(options), IApplicationDbContext
 {
     public DbSet<CommodityEntity> Commodities { get; set; }
 
     public DbSet<PriceEntity> Prices { get; set; }
 
     public DbSet<RecordEntity> Records { get; set; }
+
+    public DbSet<ErrorLogEntity> ErrorLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,6 +54,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
             entity.Property(p => p.PriceCzk).HasColumnType("decimal(18,2)");
             entity.Property(p => p.PriceUsd).HasColumnType("decimal(18,2)");
+        });
+
+        modelBuilder.Entity<ErrorLogEntity>(entity =>
+        {
+            entity.HasBaseType<BaseEntity>();
+
+            entity.HasOne(e => e.User)
+                  .WithMany(u => u.ErrorLogs)
+                  .HasForeignKey(e => e.UserId)
+                  .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

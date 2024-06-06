@@ -1,4 +1,4 @@
-﻿using PortfolioManager.Models.Models;
+﻿using PortfolioManager.Models.Models.User;
 
 namespace PortfolioManager.Managers.Managers.Interfaces;
 public interface IAuthManager

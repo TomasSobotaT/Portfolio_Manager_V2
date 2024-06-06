@@ -1,21 +1,18 @@
-﻿using Azure.Identity;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.AspNetCore.Mvc;
 using PortfolioManager.Managers.Managers.Interfaces;
-using PortfolioManager.Models.Models;
+using PortfolioManager.Models.Models.User;
 
 namespace PortfolioManager.Controllers;
+
 [Route("api/[controller]")]
-[ApiController]
 public class AuthController(IAuthManager authManager) : ControllerBase
 {
     private readonly IAuthManager authManager = authManager;
 
+    [HttpPost("Register")]
     public async Task<IActionResult> RegisterUserAsync(RegisterUser registerUser)
     {
-
+        
         if (!ModelState.IsValid)
         {
             var errors = ModelState.Values.SelectMany(v => v.Errors)
@@ -23,14 +20,21 @@ public class AuthController(IAuthManager authManager) : ControllerBase
                                           .ToList();
             return BadRequest(new { Errors = errors });
         }
-
-        var result = await authManager.RegisterUserAsync(registerUser);
-
-        if (result == null)
+        try
         {
-            return BadRequest("Registrace se nezdařila.");
-        }
+            var result = await authManager.RegisterUserAsync(registerUser);
 
-        return Ok(result);
+            if (result == null)
+            {
+                return BadRequest("Registration failed");
+            }
+
+            return Ok(result);
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
 }
