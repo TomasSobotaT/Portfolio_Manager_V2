@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioManager.Base\PortfolioManager.Base.csproj" />
+  </ItemGroup>
+
 </Project>

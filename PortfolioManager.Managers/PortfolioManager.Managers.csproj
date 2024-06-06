@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Managers\Interfaces\" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioManager.Data\PortfolioManager.Data.csproj" />
+    <ProjectReference Include="..\PortfolioManager.Models\PortfolioManager.Models.csproj" />
   </ItemGroup>
 
 </Project>
