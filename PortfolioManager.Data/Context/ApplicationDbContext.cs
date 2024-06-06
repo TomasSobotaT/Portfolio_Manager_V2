@@ -55,16 +55,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(p => p.PriceCzk).HasColumnType("decimal(18,2)");
             entity.Property(p => p.PriceUsd).HasColumnType("decimal(18,2)");
         });
-
-        modelBuilder.Entity<ErrorLogEntity>(entity =>
-        {
-            entity.HasBaseType<BaseEntity>();
-
-            entity.HasOne(e => e.User)
-                  .WithMany(u => u.ErrorLogs)
-                  .HasForeignKey(e => e.UserId)
-                  .OnDelete(DeleteBehavior.Restrict);
-        });
     }
 }
 

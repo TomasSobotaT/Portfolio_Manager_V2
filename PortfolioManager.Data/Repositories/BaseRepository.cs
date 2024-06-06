@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Data.Context;
 using PortfolioManager.Data.Repositories.Interfaces;

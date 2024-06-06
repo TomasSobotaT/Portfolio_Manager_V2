@@ -4,6 +4,8 @@ using Microsoft.OpenApi.Models;
 using PortfolioManager;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Data.Context;
+using PortfolioManager.Data.Repositories;
+using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Managers;
 using PortfolioManager.Managers.Managers.Interfaces;
 
@@ -31,6 +33,9 @@ builder.Services.AddAutoMapper(typeof(AutomapperConfiguration));
 
 
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped<ILogManager, LogManager>();
+builder.Services.AddScoped<IErrorLogRepository, ErrorLogRepository>();
+
 
 
 

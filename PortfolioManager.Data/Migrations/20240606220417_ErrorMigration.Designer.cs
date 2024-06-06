@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortfolioManager.Data.Context;
 
@@ -11,9 +12,11 @@ using PortfolioManager.Data.Context;
 namespace PortfolioManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240606220417_ErrorMigration")]
+    partial class ErrorMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,8 +292,13 @@ namespace PortfolioManager.Data.Migrations
                     b.Property<int>("ErrorType")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserEntityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.HasIndex("UserEntityId");
 
                     b.ToTable("ErrorLogs");
                 });
@@ -390,6 +398,13 @@ namespace PortfolioManager.Data.Migrations
                     b.Navigation("Price");
                 });
 
+            modelBuilder.Entity("PortfolioManager.Base.Entities.ErrorLogEntity", b =>
+                {
+                    b.HasOne("PortfolioManager.Base.Entities.UserEntity", null)
+                        .WithMany("ErrorLogs")
+                        .HasForeignKey("UserEntityId");
+                });
+
             modelBuilder.Entity("PortfolioManager.Base.Entities.RecordEntity", b =>
                 {
                     b.HasOne("PortfolioManager.Base.Entities.CommodityEntity", "Commodity")
@@ -411,6 +426,8 @@ namespace PortfolioManager.Data.Migrations
 
             modelBuilder.Entity("PortfolioManager.Base.Entities.UserEntity", b =>
                 {
+                    b.Navigation("ErrorLogs");
+
                     b.Navigation("Records");
                 });
 

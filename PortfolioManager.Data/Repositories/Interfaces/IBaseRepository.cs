@@ -9,6 +9,7 @@ public interface IBaseRepository<T> where T : BaseEntity
     Task DeleteAsync(int id);
 
     Task<IEnumerable<T>> GetAllAsync();
+
     Task<T> GetAsync(int id);
 
     Task UpdateAsync(T entity);
