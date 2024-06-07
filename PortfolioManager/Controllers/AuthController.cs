@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PortfolioManager.Base.Enums;
 using PortfolioManager.Managers.Managers;
 using PortfolioManager.Managers.Managers.Interfaces;
 using PortfolioManager.Models.Models.User;
 
 namespace PortfolioManager.Controllers;
 
+[ApiController]
 [Route("api/[controller]")]
 public class AuthController(IAuthManager authManager, ILogManager logManager) : ControllerBase
 {
@@ -15,20 +17,9 @@ public class AuthController(IAuthManager authManager, ILogManager logManager) : 
     [HttpPost("Register")]
     public async Task<IActionResult> RegisterUserAsync(RegisterUser registerUser)
     {
-        logManager.LogError("neco");
-
-
-        if (!ModelState.IsValid)
-        {
-            var errors = ModelState.Values.SelectMany(v => v.Errors)
-                                          .Select(e => e.ErrorMessage)
-                                          .ToList();
-            return BadRequest(new { Errors = errors });
-        }
         try
         {
             var result = await authManager.RegisterUserAsync(registerUser);
-
             if (result == null)
             {
                 return BadRequest("Registration failed");
@@ -36,10 +27,30 @@ public class AuthController(IAuthManager authManager, ILogManager logManager) : 
 
             return Ok(result);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            logManager.LogError(ex.Message,ErrorTypes.RegisterError);
+            return StatusCode(500, new { Message = $"Error within registration: {ex.Message}" });
+        }
+    }
 
-            throw;
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login(LoginUser loginUser)
+    {
+        try
+        {
+            var result = await authManager.LoginUserAsync(loginUser);
+            if (result is null)
+            {
+                return Unauthorized(new { Message = "Invalid login attempt" });
+            }
+
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            logManager.LogError(ex.Message, ErrorTypes.LoginError);
+            return StatusCode(500, new { Message = $"Error within login: {ex.Message}" });
         }
     }
 }

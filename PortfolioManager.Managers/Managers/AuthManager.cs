@@ -28,4 +28,18 @@ public class AuthManager(SignInManager<UserEntity> signInManager, UserManager<Us
 
         return null;
     }
+
+
+    public async Task<UserDto> LoginUserAsync(LoginUser loginUser)
+    {
+        var result = await signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, false);
+
+        if (result.Succeeded)
+        {
+            var user = await userManager.FindByEmailAsync(loginUser.Email);
+            return mapper.Map<UserDto>(user);
+        }
+
+        return null;
+    }
 }
