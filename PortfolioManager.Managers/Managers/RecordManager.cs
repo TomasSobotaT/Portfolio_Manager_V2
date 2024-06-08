@@ -36,7 +36,7 @@ public class RecordManager(IRecordRepository recordRepository, ICommodityReposit
         var result = new List<Record>();
 
         var commodityIds = records.Select(r => r.CommodityId).ToList();
-        var commodities = await commodityRepository.getalll();
+        var commodities = await commodityRepository.GetAllAsync();
         var userCommodities = commodities.Where(c => commodityIds.Contains(c.Id)).ToList();
         var priceIds =  userCommodities.Select(c => c.PriceId).ToList();
         var prices = await priceRepository.GetAllAsync();
