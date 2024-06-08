@@ -7,5 +7,4 @@ public interface IRecordManager
 {
     Task<Record> AddRecordAsync(RecordEditModel recordEditModel, int userId);
     Task<IEnumerable<Record>> GetRecordsAsync(int userId);
-    Task<IEnumerable<Commodity>> pokus();
 }

@@ -31,13 +31,6 @@ public class RecordManager(IRecordRepository recordRepository, ICommodityReposit
         return mapper.Map<Record>(recordEntity);
     }
 
-    public async Task<IEnumerable<Commodity>> pokus()
-    {
-        var response = await commodityRepository.GetAllAsync();
-        var x =  mapper.Map<List<Commodity>>(response);
-        return x; 
-    }
-
     private async Task<IEnumerable<Record>> GetRecordsWithPricesAsync(IEnumerable<RecordEntity> records)
     {
         var result = new List<Record>();

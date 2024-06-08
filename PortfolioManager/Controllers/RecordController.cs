@@ -19,22 +19,6 @@ public class RecordController(IRecordManager recordManager, ILogManager logManag
     private readonly ILogManager logManager = logManager;
 
 
-    [HttpGet("Gettest")]
-    public async Task<IActionResult> Aaa()
-    {
-        try
-        {
-            var response = await recordManager.pokus();
-
-            return Ok(response);
-        }
-        catch (Exception ex)
-        {
-            await logManager.LogErrorAsync(ex.Message,"1", ErrorTypes.RecodError);
-            return StatusCode(500, new { Message = $"Error within getting record: {ex.Message}" });
-        }
-    }
-
     [HttpGet("GetRecords")]
     public async Task<IActionResult> GetRecordsAsync()
     {

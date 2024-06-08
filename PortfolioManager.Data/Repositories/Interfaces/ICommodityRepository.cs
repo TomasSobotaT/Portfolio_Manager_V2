@@ -4,5 +4,4 @@ namespace PortfolioManager.Data.Repositories.Interfaces;
 
 public interface ICommodityRepository : IBaseRepository<CommodityEntity>
 {
-    Task<List<CommodityEntity>> getalll();
 }
