@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PortfolioManager.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class dfsdfdfasf : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,13 +66,33 @@ namespace PortfolioManager.Data.Migrations
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    UserIpAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ErrorType = table.Column<int>(type: "int", nullable: false),
                     ErrorMessage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ErrorLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [BaseEntitySequence]"),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    UserIpAdress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EventType = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventLogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -297,9 +317,7 @@ namespace PortfolioManager.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Commodities_PriceId",
                 table: "Commodities",
-                column: "PriceId",
-                unique: true,
-                filter: "[PriceId] IS NOT NULL");
+                column: "PriceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Records_CommodityId",
@@ -332,6 +350,9 @@ namespace PortfolioManager.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ErrorLogs");
+
+            migrationBuilder.DropTable(
+                name: "EventLogs");
 
             migrationBuilder.DropTable(
                 name: "Records");

@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using PortfolioManager;
 using PortfolioManager.Base.Authentication;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Data.Context;
-using PortfolioManager.Data.Repositories;
 using PortfolioManager.Data.Repositories.Interfaces;
-using PortfolioManager.Managers.Managers;
+using PortfolioManager.Data.Repositories;
 using PortfolioManager.Managers.Managers.Interfaces;
-using System.Text;
+using PortfolioManager.Managers.Managers;
+using PortfolioManager;
 using System.Text.Json.Serialization;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,8 +49,6 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = false,
         ValidateLifetime = false,
         ValidateIssuerSigningKey = false,
-        //ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        //ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
@@ -64,11 +62,11 @@ builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<ILogManager, LogManager>();
 builder.Services.AddScoped<IRecordManager, RecordManager>();
 
-
 builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 builder.Services.AddScoped<IErrorLogRepository, ErrorLogRepository>();
-
-
+builder.Services.AddScoped<IEventLogRepository, EventLogRepository>();
+builder.Services.AddScoped<ICommodityRepository, CommodityRepository>();
+builder.Services.AddScoped<IPriceRepository, PriceRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
@@ -90,14 +88,6 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-//var supportedCultures = new[] { new CultureInfo("en-US") };
-//app.UseRequestLocalization(new RequestLocalizationOptions
-//{
-//    DefaultRequestCulture = new RequestCulture("en-US"),
-//    SupportedCultures = supportedCultures,
-//    SupportedUICultures = supportedCultures
-//});
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -106,7 +96,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Portfolio Manager - v1");
-        options.RoutePrefix = string.Empty; // Swagger UI bude dostupný na koøenové URL (https://localhost:<port>/)
+        options.RoutePrefix = string.Empty;
     });
 }
 else
@@ -124,8 +114,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

@@ -15,6 +15,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<ErrorLogEntity> ErrorLogs { get; set; }
 
+    public DbSet<EventLogEntity> EventLogs { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -43,8 +45,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.HasBaseType<BaseEntity>();
 
             entity.HasOne(c => c.Price)
-                .WithOne(p => p.Commodity)
-                .HasForeignKey<CommodityEntity>(c => c.PriceId)
+                .WithMany(p => p.Commodity)
+                .HasForeignKey(c => c.PriceId)
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
@@ -55,6 +57,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(p => p.PriceCzk).HasColumnType("decimal(18,2)");
             entity.Property(p => p.PriceUsd).HasColumnType("decimal(18,2)");
         });
+
+        modelBuilder.Seed();
     }
 }
 

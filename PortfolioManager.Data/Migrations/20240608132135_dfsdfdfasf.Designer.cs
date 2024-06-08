@@ -12,8 +12,8 @@ using PortfolioManager.Data.Context;
 namespace PortfolioManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240607193143_init")]
-    partial class init
+    [Migration("20240608132135_dfsdfdfasf")]
+    partial class dfsdfdfasf
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -275,9 +275,7 @@ namespace PortfolioManager.Data.Migrations
                     b.Property<int>("PriceId")
                         .HasColumnType("int");
 
-                    b.HasIndex("PriceId")
-                        .IsUnique()
-                        .HasFilter("[PriceId] IS NOT NULL");
+                    b.HasIndex("PriceId");
 
                     b.ToTable("Commodities");
                 });
@@ -292,10 +290,29 @@ namespace PortfolioManager.Data.Migrations
                     b.Property<int>("ErrorType")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserIpAdress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.ToTable("ErrorLogs");
+                });
+
+            modelBuilder.Entity("PortfolioManager.Base.Entities.EventLogEntity", b =>
+                {
+                    b.HasBaseType("PortfolioManager.Base.Entities.BaseEntity");
+
+                    b.Property<int>("EventType")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserIpAdress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable("EventLogs");
                 });
 
             modelBuilder.Entity("PortfolioManager.Base.Entities.PriceEntity", b =>
@@ -385,8 +402,8 @@ namespace PortfolioManager.Data.Migrations
             modelBuilder.Entity("PortfolioManager.Base.Entities.CommodityEntity", b =>
                 {
                     b.HasOne("PortfolioManager.Base.Entities.PriceEntity", "Price")
-                        .WithOne("Commodity")
-                        .HasForeignKey("PortfolioManager.Base.Entities.CommodityEntity", "PriceId")
+                        .WithMany("Commodity")
+                        .HasForeignKey("PriceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

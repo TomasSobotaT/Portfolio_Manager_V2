@@ -2,13 +2,12 @@
 
 namespace PortfolioManager.Base.Entities;
 
-public class ErrorLogEntity : BaseEntity
+public class EventLogEntity : BaseEntity
 {
     public int? UserId { get; set; }
 
     public string UserIpAdress { get; set; }
 
-    public ErrorTypes ErrorType { get; set; }
+    public EventTypes EventType { get; set; }
 
-    public string ErrorMessage { get; set; }
 }

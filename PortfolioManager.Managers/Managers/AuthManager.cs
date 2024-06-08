@@ -15,7 +15,6 @@ public class AuthManager(SignInManager<UserEntity> signInManager, UserManager<Us
     private readonly SignInManager<UserEntity> signInManager = signInManager;
     private readonly UserManager<UserEntity> userManager = userManager;
     private readonly IMapper mapper = mapper;
-    private readonly ILogManager logManager = logManager;
     private readonly ITokenManager tokenManager = tokenManager;
 
     public async Task<string> RegisterUserAsync(RegisterUser registerUser)

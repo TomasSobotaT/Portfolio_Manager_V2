@@ -17,7 +17,7 @@ public class HttpUserContext(IHttpContextAccessor httpContextAccessor) : IUserCo
         }
     }
 
-    public int UserId
+    public int? UserId
     {
         get
         {
@@ -26,7 +26,7 @@ public class HttpUserContext(IHttpContextAccessor httpContextAccessor) : IUserCo
             {
                 return userId;
             }
-            return 1;
+            return null;
         }
     }
 }

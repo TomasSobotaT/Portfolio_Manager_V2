@@ -12,4 +12,5 @@ public interface IApplicationDbContext
     DbSet<PriceEntity> Prices { get; set; }
 
     DbSet<RecordEntity> Records { get; set; }
+    DbSet<EventLogEntity> EventLogs { get; set; }
 }

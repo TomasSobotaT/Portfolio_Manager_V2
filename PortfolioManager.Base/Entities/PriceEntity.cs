@@ -6,5 +6,5 @@ public class PriceEntity : BaseEntity
 
     public decimal PriceUsd { get; set; }
 
-    public CommodityEntity Commodity { get; set; }
+    public ICollection<CommodityEntity> Commodity { get; set; }
 }

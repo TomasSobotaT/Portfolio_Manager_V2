@@ -23,7 +23,7 @@ public class TokenManager(IConfiguration configuration, UserManager<UserEntity> 
 
         var claims = new List<Claim>
         {
-                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                  new Claim(JwtRegisteredClaimNames.Name, user.UserName),
                  new Claim(JwtRegisteredClaimNames.Email, user.Email),
         };
