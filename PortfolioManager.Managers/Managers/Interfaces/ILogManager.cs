@@ -4,5 +4,5 @@ namespace PortfolioManager.Managers.Managers.Interfaces;
 
 public interface ILogManager
 {
-    void LogError(string ErroMmessage, ErrorTypes errorType = ErrorTypes.BaseError);
+    Task LogErrorAsync(string ErroMmessage, ErrorTypes errorType = ErrorTypes.BaseError);
 }

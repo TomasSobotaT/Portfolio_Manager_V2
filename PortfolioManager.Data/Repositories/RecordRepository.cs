@@ -5,7 +5,7 @@ using PortfolioManager.Data.Repositories.Interfaces;
 
 namespace PortfolioManager.Data.Repositories;
 
-public class ErrorLogRepository(ApplicationDbContext applicationDbContext, IUserContext userContext)
-    : BaseRepository<ErrorLogEntity>(applicationDbContext, userContext), IErrorLogRepository
+public class RecordRepository(ApplicationDbContext applicationDbContext, IUserContext userContext)
+    : BaseRepository<RecordEntity>(applicationDbContext, userContext), IRecordRepository
 {
 }

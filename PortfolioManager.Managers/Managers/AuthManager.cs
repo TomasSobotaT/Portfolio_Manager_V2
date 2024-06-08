@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
+using PortfolioManager.Base.Authentication;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Managers.Managers.Interfaces;
 using PortfolioManager.Models.Models.User;
@@ -7,14 +10,15 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace PortfolioManager.Managers.Managers;
 
-public class AuthManager(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager, IMapper mapper) : IAuthManager
+public class AuthManager(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager, IMapper mapper, ILogManager logManager, ITokenManager tokenManager) : IAuthManager
 {
     private readonly SignInManager<UserEntity> signInManager = signInManager;
     private readonly UserManager<UserEntity> userManager = userManager;
     private readonly IMapper mapper = mapper;
+    private readonly ILogManager logManager = logManager;
+    private readonly ITokenManager tokenManager = tokenManager;
 
-
-    public async Task<UserDto> RegisterUserAsync(RegisterUser registerUser)
+    public async Task<string> RegisterUserAsync(RegisterUser registerUser)
     {
         var userEntity = mapper.Map<UserEntity>(registerUser);
 
@@ -23,21 +27,25 @@ public class AuthManager(SignInManager<UserEntity> signInManager, UserManager<Us
         if (result.Succeeded)
         {
             var user = await userManager.FindByEmailAsync(registerUser.Email);
-            return mapper.Map<UserDto>(user);
+            var token =  await tokenManager.GenerateTokenAsync(user);
+            return token;
         }
 
         return null;
     }
 
-
-    public async Task<UserDto> LoginUserAsync(LoginUser loginUser)
+    public async Task<string> LoginUserAsync(LoginUser loginUser)
     {
-        var result = await signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, false);
+        var users = await userManager.Users.Where(u => u.UserName == loginUser.UserName).ToListAsync();
 
-        if (result.Succeeded)
+        foreach (var user in users)
         {
-            var user = await userManager.FindByEmailAsync(loginUser.Email);
-            return mapper.Map<UserDto>(user);
+            var result = await signInManager.CheckPasswordSignInAsync(user, loginUser.Password, false);
+            if (result.Succeeded)
+            {
+                var token = await tokenManager.GenerateTokenAsync(user);
+                return token;
+            }
         }
 
         return null;

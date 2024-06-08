@@ -12,8 +12,8 @@ using PortfolioManager.Data.Context;
 namespace PortfolioManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240606142227_UserMigration")]
-    partial class UserMigration
+    [Migration("20240607193143_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,6 +280,22 @@ namespace PortfolioManager.Data.Migrations
                         .HasFilter("[PriceId] IS NOT NULL");
 
                     b.ToTable("Commodities");
+                });
+
+            modelBuilder.Entity("PortfolioManager.Base.Entities.ErrorLogEntity", b =>
+                {
+                    b.HasBaseType("PortfolioManager.Base.Entities.BaseEntity");
+
+                    b.Property<string>("ErrorMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ErrorType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.ToTable("ErrorLogs");
                 });
 
             modelBuilder.Entity("PortfolioManager.Base.Entities.PriceEntity", b =>

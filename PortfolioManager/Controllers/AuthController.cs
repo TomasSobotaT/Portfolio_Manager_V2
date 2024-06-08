@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioManager.Base.Enums;
 using PortfolioManager.Managers.Managers;
 using PortfolioManager.Managers.Managers.Interfaces;
@@ -20,16 +21,16 @@ public class AuthController(IAuthManager authManager, ILogManager logManager) : 
         try
         {
             var result = await authManager.RegisterUserAsync(registerUser);
-            if (result == null)
+            if (result is null)
             {
                 return BadRequest("Registration failed");
             }
-
+            
             return Ok(result);
         }
         catch (Exception ex)
         {
-            logManager.LogError(ex.Message,ErrorTypes.RegisterError);
+            await logManager.LogErrorAsync(ex.Message,ErrorTypes.RegisterError);
             return StatusCode(500, new { Message = $"Error within registration: {ex.Message}" });
         }
     }
@@ -49,7 +50,7 @@ public class AuthController(IAuthManager authManager, ILogManager logManager) : 
         }
         catch (Exception ex)
         {
-            logManager.LogError(ex.Message, ErrorTypes.LoginError);
+            await logManager.LogErrorAsync(ex.Message, ErrorTypes.LoginError);
             return StatusCode(500, new { Message = $"Error within login: {ex.Message}" });
         }
     }

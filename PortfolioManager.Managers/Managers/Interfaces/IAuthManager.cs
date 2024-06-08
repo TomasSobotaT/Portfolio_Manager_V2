@@ -3,6 +3,6 @@
 namespace PortfolioManager.Managers.Managers.Interfaces;
 public interface IAuthManager
 {
-    Task<UserDto> LoginUserAsync(LoginUser loginUser);
-    Task<UserDto> RegisterUserAsync(RegisterUser registerUser);
+    Task<string> LoginUserAsync(LoginUser loginUser);
+    Task<string> RegisterUserAsync(RegisterUser registerUser);
 }

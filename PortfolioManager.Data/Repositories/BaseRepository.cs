@@ -1,13 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PortfolioManager.Base.Authentication;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Data.Context;
 using PortfolioManager.Data.Repositories.Interfaces;
 
 namespace PortfolioManager.Data.Repositories;
 
-public class BaseRepository<T>(ApplicationDbContext applicationDbContext) : IBaseRepository<T> where T : BaseEntity
+public class BaseRepository<T>(ApplicationDbContext applicationDbContext, IUserContext userContext) : IBaseRepository<T> where T : BaseEntity
 {
     protected readonly ApplicationDbContext applicationDbContext = applicationDbContext;
+    protected readonly IUserContext userContext = userContext;
     protected readonly DbSet<T> dbSet = applicationDbContext.Set<T>();
 
     public async Task<IEnumerable<T>> GetAllAsync()
@@ -22,7 +24,7 @@ public class BaseRepository<T>(ApplicationDbContext applicationDbContext) : IBas
 
     public async Task UpdateAsync(T entity)
     {
-        entity.UpdatedBy = "todo";
+        entity.UpdatedBy = userContext?.User?.Identity?.Name;
         entity.UpdatedDate = DateTime.Now;
         dbSet.Update(entity);
         await SaveChangesToDatabaseAsync();
@@ -30,8 +32,8 @@ public class BaseRepository<T>(ApplicationDbContext applicationDbContext) : IBas
 
     public async Task AddAsync(T entity)
     {
-        entity.UpdatedBy = "todo";
-        entity.CreatedBy = "todo";
+        entity.UpdatedBy = userContext?.User?.Identity?.Name;
+        entity.CreatedBy = userContext?.User?.Identity?.Name;
         entity.CreatedDate = DateTime.Now;
         entity.UpdatedDate = DateTime.Now;
         await dbSet.AddAsync(entity);
@@ -43,7 +45,7 @@ public class BaseRepository<T>(ApplicationDbContext applicationDbContext) : IBas
         var entity = await GetAsync(id);
         if (entity is not null)
         {
-            entity.UpdatedBy = "todo";
+            entity.UpdatedBy = userContext?.User?.Identity?.Name;
             entity.UpdatedDate = DateTime.Now;
             entity.IsDeleted = true;
             await UpdateAsync(entity);
