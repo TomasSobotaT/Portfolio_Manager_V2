@@ -18,9 +18,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+////builder.Services.AddDbContext<ApplicationDbContext>(options =>
+////    options.UseSqlServer(connectionString));
+
+builder.Services.AddTransient<ApplicationDbContext>(provider =>
+{
+    var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+    optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    return new ApplicationDbContext(optionsBuilder.Options);
+});
 
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
