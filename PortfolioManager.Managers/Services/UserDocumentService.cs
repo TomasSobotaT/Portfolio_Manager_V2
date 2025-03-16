@@ -59,7 +59,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
         return mapper.Map<UserDocument>(userDocumentEntity);
     }
 
-    public async Task<DataResult<List<UserDocumentOutputModel>>> GetUserDocumentsOverviewAsync()
+    public async Task<DataResult<IList<UserDocumentOutputModel>>> GetUserDocumentsOverviewAsync()
     {
         var userDocumentEntities = await userDocumentRepository.GetAllAsync();
 

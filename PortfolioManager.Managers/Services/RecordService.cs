@@ -42,7 +42,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
         return mapper.Map<Record>(recordEntity);
     }
 
-    public async Task<DataResult<IEnumerable<Record>>> GetAllAsync()
+    public async Task<DataResult<List<Record>>> GetAllAsync()
     {
         var recordEntities = await recordRepository.GetAllAsync();
 
@@ -81,7 +81,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
         return mapper.Map<Record>(recordEntity);
     }
 
-    public async Task<DataResult<List<UserRecord>>> GetUserRecordsAsync(string currencyName)
+    public async Task<DataResult<IList<UserRecord>>> GetUserRecordsAsync(string currencyName)
     {
         var records = await recordRepository.GetAllAsync();
         var currency = await currencyRepository.GetCurrencyByNameAsync(currencyName);

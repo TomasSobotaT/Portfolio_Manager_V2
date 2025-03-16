@@ -47,7 +47,7 @@ public class CommodityService(ICommodityRepository commodityRepository, IMapper 
         return mapper.Map<Commodity>(commodityEntity);
     }
 
-    public async Task<DataResult<IEnumerable<Commodity>>> GetAllAsync()
+    public async Task<DataResult<IList<Commodity>>> GetAllAsync()
     {
         var commodityEntities = await commodityRepository.GetAllAsync();
 

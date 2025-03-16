@@ -9,7 +9,7 @@ public interface ICommodityService
 
     Task<DataResult<Commodity>> DeleteCommodityAsync(int id);
 
-    Task<DataResult<IEnumerable<Commodity>>> GetAllAsync();
+    Task<DataResult<IList<Commodity>>> GetAllAsync();
 
     Task<DataResult<Commodity>> GetCommodityAsync(int id);
 

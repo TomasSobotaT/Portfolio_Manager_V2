@@ -46,7 +46,7 @@ public class CurrencyService(ICurrencyRepository currencyRepository, IMapper map
         return mapper.Map<Currency>(CurrencyEntity);
     }
 
-    public async Task<DataResult<IEnumerable<Currency>>> GetAllAsync()
+    public async Task<DataResult<IList<Currency>>> GetAllAsync()
     {
         var CurrencyEntities = await currencyRepository.GetAllAsync();
 

@@ -113,7 +113,7 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
         return originalFileName;
     }
 
-    public DataResult<List<string>> GetUserFilesNames()
+    public DataResult<IList<string>> GetUserFilesNames()
     {
         var userId = userContext.GetUserId();
 

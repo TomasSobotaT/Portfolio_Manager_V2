@@ -9,7 +9,7 @@ public interface IRecordService
 
     Task<DataResult<Record>> DeleteRecordAsync(int id);
 
-    Task<DataResult<IEnumerable<Record>>> GetAllAsync();
+    Task<DataResult<IList<Record>>> GetAllAsync();
 
     Task<DataResult<Record>> GetRecordAsync(int id);
 

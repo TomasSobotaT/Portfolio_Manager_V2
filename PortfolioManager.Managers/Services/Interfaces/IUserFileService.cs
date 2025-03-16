@@ -10,7 +10,7 @@ public interface IUserFileService
 
     Task<DataResult<UserFile>> GetUserFileAsync(string fileName);
     
-    DataResult<List<string>> GetUserFilesNames();
+    DataResult<IList<string>> GetUserFilesNames();
 
     Task<DataResult<string>> SaveUserFileAsync(HttpRequest httpRequest);
 }

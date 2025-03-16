@@ -9,7 +9,7 @@ public interface ICurrencyService
 
     Task<DataResult<Currency>> DeleteCurrencyAsync(int id);
 
-    Task<DataResult<IEnumerable<Currency>>> GetAllAsync();
+    Task<DataResult<IList<Currency>>> GetAllAsync();
 
     Task<DataResult<Currency>> GetCurrencyAsync(int id);
 

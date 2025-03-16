@@ -9,7 +9,7 @@ public interface IUserDocumentService
 
     Task<DataResult<UserDocument>> GetUserDocumentAsync(int id);
 
-    Task<DataResult<List<UserDocumentOutputModel>>> GetUserDocumentsOverviewAsync();
+    Task<DataResult<IList<UserDocumentOutputModel>>> GetUserDocumentsOverviewAsync();
 
     Task<DataResult<bool>> SaveUserDocumentAsync(UserDocumentEditModel userDocumentEditModel);
 }
