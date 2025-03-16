@@ -42,7 +42,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
         return mapper.Map<Record>(recordEntity);
     }
 
-    public async Task<DataResult<List<Record>>> GetAllAsync()
+    public async Task<DataResult<IList<Record>>> GetAllAsync()
     {
         var recordEntities = await recordRepository.GetAllAsync();
 

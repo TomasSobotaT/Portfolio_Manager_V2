@@ -48,7 +48,7 @@ public class UserRoleController(IUserRoleService userRoleService) : ControllerBa
         return result.ConvertToObjectResult();
     }
 
-    [HttpPost(" CreateRole")]
+    [HttpPost("CreateRole")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DataResult<bool>))]
     public async Task<IActionResult> CreateRoleAsync(string roleName)
     {

@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Http;
+using Moq;
 using PortfolioManager.AI.Repositories.Interfaces;
 using PortfolioManager.Managers.Services;
 using PortfolioManager.Managers.Services.Interfaces;
@@ -33,6 +34,7 @@ public class OpenAIServiceTests
         Assert.IsNotNull(result);
         Assert.That(result, Is.TypeOf<DataResult<string>>());
         Assert.That(result.Data, Is.EqualTo("Hi"));
+        Assert.That(result.StatusCode, Is.EqualTo(Models.Enums.StatusCodes.Success));
     }
 
     [Test]
@@ -45,7 +47,7 @@ public class OpenAIServiceTests
         var result = await openAIService.AskQuestionAsync("Hello");
 
         Assert.That(result, Is.TypeOf<DataResult<string>>());
-        Assert.That(result.StatusCode, Is.EqualTo(StatusCodes.BadRequest));
+        Assert.That(result.StatusCode, Is.EqualTo(Models.Enums.StatusCodes.BadRequest));
         Assert.That(result.Errors.First(), Is.EqualTo("Error within communication with OpenAI Api : API error"));
     }
 }
