@@ -1,0 +1,16 @@
+{
+  "runtime": "Net80",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "https://localhost:7230/swagger/v1/swagger.json"
+    }
+  },
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "className": "PortfolioManagerClient",
+      "namespace": "PortfolioManager.Client",
+      "generateClientInterfaces": true,
+      "output": "PortfolioManagerClient.cs"
+    }
+  }
+}
