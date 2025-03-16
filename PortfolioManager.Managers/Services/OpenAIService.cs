@@ -16,7 +16,7 @@ public class OpenAIService(IOpenAIRepository openAIRepository) : IOpenAIService
 
 		catch (Exception ex)
 		{
-            return new ErrorStatusResult($"Error within communication with OpenAI Api : {ex.Message}", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Error within communication with OpenAI Api : {ex.Message}");
 		}
     }
 }

@@ -40,7 +40,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
         }
         catch (Exception ex)
         {
-            return new ErrorStatusResult($"Error whithin saving file: {ex.Message}", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Error whithin saving file: {ex.Message}");
         }
     }
 
@@ -96,25 +96,25 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
     {
         if (userDocumentEditModel is null || userDocumentEditModel.File is null || userDocumentEditModel.File.Length == 0)
         {
-            return new ErrorStatusResult("No file to upload.", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("No file to upload.");
         }
 
         if (userDocumentEditModel.File.Length > MaxFileSize)
         {
-            return new ErrorStatusResult("File size exceeds 10 MB.", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("File size exceeds 10 MB.");
         }
 
 
         if (string.IsNullOrWhiteSpace(Path.GetExtension(userDocumentEditModel.File.FileName)))
         {
-            return new ErrorStatusResult("File has no extension.", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("File has no extension.");
         }
 
         var fileName = FileHelper.NormalizeFileName(userDocumentEditModel.File.FileName);
 
         if (string.IsNullOrWhiteSpace(fileName))
         {
-            return new ErrorStatusResult("Bad file name.", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("Bad file name.");
         }
 
         return null;

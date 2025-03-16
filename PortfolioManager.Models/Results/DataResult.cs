@@ -8,7 +8,7 @@ public class DataResult<T> : ErrorResult
 
     public static implicit operator DataResult<T>(T data)
     {
-        return new() { Data = data };
+        return new() { Data = data, StatusCode = Enums.StatusCodes.Success };
     }
 
     public static implicit operator DataResult<T>(ErrorStatusResult errorResult)

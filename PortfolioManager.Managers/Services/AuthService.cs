@@ -11,7 +11,7 @@ namespace PortfolioManager.Managers.Services;
 
 public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, ITokenService tokenService, ILogService logService, IUserContext userContext) : IAuthService
 {
-    public async Task<AuthResult> RegisterUserAsync(RegisterUser registerUser)
+    public async Task<DataResult<AuthResult>> RegisterUserAsync(RegisterUser registerUser)
     {
         var userEntity = mapper.Map<UserEntity>(registerUser);
 
@@ -31,22 +31,21 @@ public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, IT
             };
         }
 
-        return new AuthResult { Errors = result.Errors.Select(e => e.Description).ToList()};
+        return new ErrorStatusResult("Registration failed"){ Errors = result.Errors.Select(e => e.Description).ToList()};
     }
 
-    public async Task<AuthResult> LoginUserAsync(LoginUser loginUser)
+    public async Task<DataResult<AuthResult>> LoginUserAsync(LoginUser loginUser)
     {
-
         if (string.IsNullOrWhiteSpace(loginUser.Name) || string.IsNullOrWhiteSpace(loginUser.Password))
         {
-            return new AuthResult { Errors = ["Username and password must be filled"] };
+            return new ErrorStatusResult("Username and password must be filled");
         }
 
         var userEntity = await userManager.FindByNameAsync(loginUser.Name);
         
         if (userEntity is null)
         {
-            return new AuthResult { Errors = [$"Username {loginUser.Name} not found"] };
+            return new ErrorStatusResult($"Username {loginUser.Name} not found");
         }
 
         var result = await userManager.CheckPasswordAsync(userEntity, loginUser.Password);
@@ -63,7 +62,7 @@ public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, IT
             };
         }
 
-        return new AuthResult { Errors = ["Login failed"] };
+        return new ErrorStatusResult("Login failed");
     }
 
     private void LogUserInfo(UserEntity userEntity)

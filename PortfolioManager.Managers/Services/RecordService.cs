@@ -27,7 +27,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
 
         if (recordEditModel is null)
         {
-            return new ErrorStatusResult($"Invalid recordEditModel or invalid values", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Invalid recordEditModel or invalid values");
         }
 
         var recordEntity = mapper.Map<RecordEntity>(recordEditModel);

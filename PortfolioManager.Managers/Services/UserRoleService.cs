@@ -33,7 +33,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
 
         if (!result.Succeeded)
         {
-            return new ErrorStatusResult($"Error within creating role {roleName}", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Error within creating role {roleName}");
         }
 
         return true;
@@ -47,7 +47,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
             var result = await roleManager.DeleteAsync(role);
            if (!result.Succeeded)
            {
-                return new ErrorStatusResult($"Error within deleting role {roleName}", StatusCodes.BadRequest);
+                return new ErrorStatusResult($"Error within deleting role {roleName}");
            }
 
             return true;
@@ -67,14 +67,14 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
 
         if (await userManager.IsInRoleAsync(userEntity, roleName))
         {
-            return new ErrorStatusResult($"User {userEntity.UserName} is already in role {roleName}", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"User {userEntity.UserName} is already in role {roleName}");
         }
 
         var result = await userManager.AddToRoleAsync(userEntity, roleName);
 
         if (!result.Succeeded)
         {
-            return new ErrorStatusResult($"Error within assigning role {roleName} to user {userEntity.UserName}", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Error within assigning role {roleName} to user {userEntity.UserName}");
         }
 
         return true;
@@ -91,14 +91,14 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
 
         if (!await userManager.IsInRoleAsync(userEntity, roleName))
         {
-            return new ErrorStatusResult($"User {userEntity.UserName} is not in role {roleName}", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"User {userEntity.UserName} is not in role {roleName}");
         }
 
         var result = await userManager.RemoveFromRoleAsync(userEntity, roleName);
 
         if (!result.Succeeded)
         {
-            return new ErrorStatusResult($"Error within removing role {roleName} from user {userEntity.UserName}", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Error within removing role {roleName} from user {userEntity.UserName}");
         }
 
         return true;

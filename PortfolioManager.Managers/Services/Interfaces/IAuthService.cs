@@ -5,7 +5,7 @@ namespace PortfolioManager.Managers.Services.Interfaces;
 
 public interface IAuthService
 {
-    Task<AuthResult> LoginUserAsync(LoginUser loginUser);
+    Task<DataResult<AuthResult>> LoginUserAsync(LoginUser loginUser);
 
-    Task<AuthResult> RegisterUserAsync(RegisterUser registerUser);
+    Task<DataResult<AuthResult>> RegisterUserAsync(RegisterUser registerUser);
 }

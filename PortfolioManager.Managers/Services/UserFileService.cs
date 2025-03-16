@@ -22,21 +22,21 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
         if (!httpRequest.Query.TryGetValue("originalFileSize", out var originalFileSizeValue) ||
             !long.TryParse(originalFileSizeValue.ToString().Trim(), out var originalFileSize))
         {
-            return new ErrorStatusResult("Requested upload is not valid.", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("Requested upload is not valid.");
         }
 
         if (!httpRequest.HasFormContentType ||
             !MediaTypeHeaderValue.TryParse(httpRequest.ContentType, out var mediaTypeHeader) ||
             string.IsNullOrEmpty(mediaTypeHeader.Boundary.Value))
         {
-            return new ErrorStatusResult("Requested upload is not valid", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("Requested upload is not valid");
         }
 
         var boundaryValue = HeaderUtilities.RemoveQuotes(mediaTypeHeader.Boundary.Value).Value;
 
         if (boundaryValue is null)
         {
-            return new ErrorStatusResult("Request boundary is not valid", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("Request boundary is not valid");
         }
 
         var tempFileName = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-")
@@ -70,14 +70,14 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
 
                 if (string.IsNullOrWhiteSpace(originalFileName))
                 {
-                    return new ErrorStatusResult("File has bad or no name", Models.Enums.StatusCodes.BadRequest);
+                    return new ErrorStatusResult("File has bad or no name");
                 }
 
                 finalFilePath = Path.Combine(webHostEnvironment.ContentRootPath, "AppData", $"{userId}", originalFileName);
 
                 if (File.Exists(finalFilePath))
                 {
-                    return new ErrorStatusResult($"File {originalFileName} already exists", Models.Enums.StatusCodes.BadRequest);
+                    return new ErrorStatusResult($"File {originalFileName} already exists");
                 }
 
                 using var targetStream = File.Create(tempFilePath);
@@ -99,7 +99,7 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
         if (originalFileName is null || totalBytesRead != originalFileSize)
         {
             if (tempFilePath != null) File.Delete(tempFilePath);
-            return new ErrorStatusResult("File upload failed", Models.Enums.StatusCodes.BadRequest);
+            return new ErrorStatusResult("File upload failed");
         }
 
         Directory.CreateDirectory(Path.GetDirectoryName(finalFilePath));
@@ -180,7 +180,7 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
             }
             catch (Exception ex)
             {
-                return new ErrorStatusResult($"Error within deleting file {fileName}: {ex.Message}", Models.Enums.StatusCodes.BadRequest);
+                return new ErrorStatusResult($"Error within deleting file {fileName}: {ex.Message}");
             }
         }
 

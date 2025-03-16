@@ -26,14 +26,14 @@ public class CurrencyService(ICurrencyRepository currencyRepository, IMapper map
     {
         if(currencyEditModel is null || string.IsNullOrWhiteSpace(currencyEditModel.Name))
         {
-            return new ErrorStatusResult($"Invalid currencyEditModel or invalid name", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Invalid currencyEditModel or invalid name");
         }
 
         var existingCurrencyEntity = await GetCurrencyByNameAsync(currencyEditModel.Name);
 
         if (existingCurrencyEntity is not null)
         {
-            return new ErrorStatusResult($"Currency {currencyEditModel.Name} already exists", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Currency {currencyEditModel.Name} already exists");
         }
 
         var CurrencyEntity = mapper.Map<CurrencyEntity>(currencyEditModel);
@@ -56,7 +56,7 @@ public class CurrencyService(ICurrencyRepository currencyRepository, IMapper map
 
         if (currencyEntity is null)
         {
-            return new ErrorStatusResult($"Currency with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Currency with id {id} not found");
         }
 
         currencyRepository.Delete(currencyEntity);
@@ -71,7 +71,7 @@ public class CurrencyService(ICurrencyRepository currencyRepository, IMapper map
 
         if (currencyEntity is null)
         {
-            return new ErrorStatusResult($"Currency with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Currency with id {id} not found");
         }
 
         mapper.Map(CurrencyEditModel, currencyEntity);

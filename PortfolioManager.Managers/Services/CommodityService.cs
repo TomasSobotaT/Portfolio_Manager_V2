@@ -24,17 +24,16 @@ public class CommodityService(ICommodityRepository commodityRepository, IMapper 
 
     public async Task<DataResult<Commodity>> AddCommodityAsync(CommodityEditModel commodityEditModel)
     {
-
         if (commodityEditModel is null || string.IsNullOrWhiteSpace(commodityEditModel.Name))
         {
-            return new ErrorStatusResult($"Invalid commodityEditModel or invalid name", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Invalid commodityEditModel or invalid name");
         }
 
         var existingCommodityEntity = await GetCommodityByNameAsync(commodityEditModel.Name);
 
         if (existingCommodityEntity is not null)
         {
-            return new ErrorStatusResult($"Commodity {commodityEditModel.Name} already exists", StatusCodes.BadRequest);
+            return new ErrorStatusResult($"Commodity {commodityEditModel.Name} already exists");
         }
 
         var commodityEntity = mapper.Map<CommodityEntity>(commodityEditModel);

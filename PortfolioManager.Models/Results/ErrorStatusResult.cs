@@ -5,7 +5,7 @@ namespace PortfolioManager.Models.Results;
 
 public class ErrorStatusResult : ErrorResult
 {
-    public ErrorStatusResult(string error, StatusCodes errorStatuCode)
+    public ErrorStatusResult(string error, StatusCodes errorStatuCode = StatusCodes.BadRequest)
     {
         this.Errors.Add(error);
         this.StatusCode = errorStatuCode;
