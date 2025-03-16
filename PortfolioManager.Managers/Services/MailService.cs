@@ -7,8 +7,6 @@ namespace PortfolioManager.Managers.Services
 {
     public class MailService(IMailSettings mailSettings) : IMailService
     {
-        private readonly IMailSettings mailSettings = mailSettings;
-
         public async Task SendEmailAsync(string fromEmail, string subject, string body, string displayName, params string[] recipients)
         {
             var fromAddress = new MailAddress(fromEmail, displayName);

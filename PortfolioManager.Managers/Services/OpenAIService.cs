@@ -7,8 +7,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class OpenAIService(IOpenAIRepository openAIRepository) : IOpenAIService
 {
-    private readonly IOpenAIRepository openAIRepository = openAIRepository;
-
     public async Task<DataResult<string>> AskQuestionAsync(string question)
     {
 		try

@@ -10,10 +10,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class RecordService(IRecordRepository recordRepository, ICurrencyRepository currencyRepository, IMapper mapper) : IRecordService
 {
-    private readonly IRecordRepository recordRepository = recordRepository;
-    private readonly ICurrencyRepository currencyRepository = currencyRepository;
-    private readonly IMapper mapper = mapper;
-
     public async Task<DataResult<Record>> GetRecordAsync(int id)
     {
         var recordEntity = await recordRepository.GetAsync(id);

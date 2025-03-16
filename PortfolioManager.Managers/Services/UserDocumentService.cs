@@ -12,9 +12,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class UserDocumentService(IUserDocumentRepository userDocumentRepository, IMapper mapper) : IUserDocumentService
 {
-    private readonly IUserDocumentRepository userDocumentRepository = userDocumentRepository;
-    private readonly IMapper mapper = mapper;
-
     private const int MaxFileSize = 10_000_000;
 
     public async Task<DataResult<bool>> SaveUserDocumentAsync(UserDocumentEditModel userDocumentEditModel)

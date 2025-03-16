@@ -9,8 +9,6 @@ namespace PortfolioManager.Managers.JwtBearer
 {
     public class TokenService(IConfiguration configuration) : ITokenService
     {
-        private readonly IConfiguration configuration = configuration;
-
         public string GenerateToken(UserEntity user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));

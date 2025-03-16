@@ -10,9 +10,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class CommodityService(ICommodityRepository commodityRepository, IMapper mapper) : ICommodityService
 {
-    private readonly ICommodityRepository commodityRepository = commodityRepository;
-    private readonly IMapper mapper = mapper;
-
     public async Task<DataResult<Commodity>> GetCommodityAsync(int id)
     {
         var commodityEntity = await commodityRepository.GetAsync(id);

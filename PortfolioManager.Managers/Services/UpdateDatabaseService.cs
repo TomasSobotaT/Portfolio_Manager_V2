@@ -11,13 +11,6 @@ public class UpdateDatabaseService(
     ICurrencyRepository currencyRepository)
     : IUpdateDatabaseService
 {
-    private readonly ICryptoPriceApiRepository cryptoPriceApiRepository = cryptoPriceApiRepository;
-    private readonly ICurrencyPriceApiRepository currencyPriceApiRepository = currencyPriceApiRepository;
-    private readonly IMetalPriceApiRepository metalPriceApiRepository = metalPriceApiRepository;
-
-    private readonly ICommodityRepository commodityRepository = commodityRepository;
-    private readonly ICurrencyRepository currencyRepository = currencyRepository;
-
     public async Task UpdateDatabaseAsync()
     {
         var comoditiesEntities = await commodityRepository.GetAllAsync();

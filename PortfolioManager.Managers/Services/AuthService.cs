@@ -9,15 +9,8 @@ using PortfolioManager.Models.Results;
 
 namespace PortfolioManager.Managers.Services;
 
-public class AuthService(SignInManager<UserEntity> signInManager, UserManager<UserEntity> userManager, IMapper mapper, ITokenService tokenService, ILogService logService, IUserContext userContext) : IAuthService
+public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, ITokenService tokenService, ILogService logService, IUserContext userContext) : IAuthService
 {
-    private readonly SignInManager<UserEntity> signInManager = signInManager;
-    private readonly UserManager<UserEntity> userManager = userManager;
-    private readonly IMapper mapper = mapper;
-    private readonly ITokenService tokenService = tokenService;
-    private readonly ILogService logService = logService;
-    private readonly IUserContext userContext = userContext;
-
     public async Task<AuthResult> RegisterUserAsync(RegisterUser registerUser)
     {
         var userEntity = mapper.Map<UserEntity>(registerUser);
@@ -56,9 +49,9 @@ public class AuthService(SignInManager<UserEntity> signInManager, UserManager<Us
             return new AuthResult { Errors = [$"Username {loginUser.Name} not found"] };
         }
 
-        var result = await signInManager.PasswordSignInAsync(userEntity, loginUser.Password, false, false);
+        var result = await userManager.CheckPasswordAsync(userEntity, loginUser.Password);
 
-        if (result.Succeeded)
+        if (result)
         {
             var token = tokenService.GenerateToken(userEntity);
             LogUserInfo(userEntity);
@@ -71,11 +64,6 @@ public class AuthService(SignInManager<UserEntity> signInManager, UserManager<Us
         }
 
         return new AuthResult { Errors = ["Login failed"] };
-    }
-
-    public async Task LogOutUserAsync()
-    {
-        await signInManager.SignOutAsync();
     }
 
     private void LogUserInfo(UserEntity userEntity)

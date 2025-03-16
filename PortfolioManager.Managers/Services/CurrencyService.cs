@@ -10,9 +10,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class CurrencyService(ICurrencyRepository currencyRepository, IMapper mapper) : ICurrencyService
 {
-    private readonly ICurrencyRepository currencyRepository = currencyRepository;
-    private readonly IMapper mapper = mapper;
-
     public async Task<DataResult<Currency>> GetCurrencyAsync(int id)
     {
         var currencyEntity = await currencyRepository.GetAsync(id);

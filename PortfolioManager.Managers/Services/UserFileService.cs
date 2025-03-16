@@ -15,10 +15,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContext userContext, IHubContext<UploadHub> uploadHubContext) : IUserFileService
 {
-    private readonly IWebHostEnvironment webHostEnvironment = webHostEnvironment;
-    private readonly IUserContext userContext = userContext;
-    private readonly IHubContext<UploadHub> uploadHubContext = uploadHubContext;
-
     public async Task<DataResult<string>> SaveUserFileAsync(HttpRequest httpRequest)
     {
         var userId = userContext.GetUserId();

@@ -55,6 +55,8 @@ app.UseHangfire();
 
 app.UseSignalR();
 
+app.UseMinimalApi();
+
 app.MapControllers();
 
 app.Run();

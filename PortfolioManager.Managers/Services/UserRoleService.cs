@@ -10,9 +10,6 @@ namespace PortfolioManager.Managers.Services;
 
 public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserManager<UserEntity> userManager) : IUserRoleService
 {
-    private readonly RoleManager<IdentityRole<int>> roleManager = roleManager;
-    private readonly UserManager<UserEntity> userManager = userManager;
-
     public async Task<DataResult<List<string>>> GetAllRolesAsync()
     {
         var roleEntities = await roleManager.Roles.ToListAsync();

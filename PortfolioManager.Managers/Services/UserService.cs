@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PortfolioManager.Base.Entities;
-using PortfolioManager.Base.Entities.Base;
 using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Enums;
@@ -11,10 +10,6 @@ using PortfolioManager.Models.Results;
 namespace PortfolioManager.Managers.Services;
 public class UserService(UserManager<UserEntity> userManager, IUserRepository userRepository, IMapper mapper) : IUserService
 {
-    private readonly UserManager<UserEntity> userManager = userManager;
-    private readonly IUserRepository userRepository = userRepository;
-    private readonly IMapper mapper = mapper;
-
     public async Task<DataResult<User>> GetUserAsync(int id)
     {
         var userEntity = await userRepository.GetAsync(id);
@@ -27,7 +22,7 @@ public class UserService(UserManager<UserEntity> userManager, IUserRepository us
         var roles = await userManager.GetRolesAsync(userEntity);
 
         var user = mapper.Map<User>(userEntity);
-        user.Roles = roles.ToList();
+        user.Roles = [.. roles];
 
         return user;
     }

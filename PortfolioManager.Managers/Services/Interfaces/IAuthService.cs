@@ -7,7 +7,5 @@ public interface IAuthService
 {
     Task<AuthResult> LoginUserAsync(LoginUser loginUser);
 
-    Task LogOutUserAsync();
-
     Task<AuthResult> RegisterUserAsync(RegisterUser registerUser);
 }
