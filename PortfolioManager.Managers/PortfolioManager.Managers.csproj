@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+	 <ProjectReference Include="..\PortfolioManager.Base\PortfolioManager.Base.csproj" />
+    <ProjectReference Include="..\PortfolioManager.Data\PortfolioManager.Data.csproj" />
+    <ProjectReference Include="..\PortfolioManager.Models\PortfolioManager.Models.csproj" />
+  </ItemGroup>
+
+</Project>

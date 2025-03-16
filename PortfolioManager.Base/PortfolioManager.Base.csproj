@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.8.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
+	<PackageReference Include="AutoMapper" Version="13.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Client.Core" Version="8.0.10" />
+	<PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="8.0.10" />
+	<PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+	<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="7.0.2" />
+	<PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PortfolioManager.AI\PortfolioManager.AI.csproj" />
+    <ProjectReference Include="..\PortfolioManager.ExternalApis\PortfolioManager.ExternalApis.csproj" />
+  </ItemGroup>
+
+</Project>
