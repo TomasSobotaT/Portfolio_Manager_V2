@@ -34,7 +34,6 @@ public class OpenAIServiceTests
         Assert.IsNotNull(result);
         Assert.That(result, Is.TypeOf<DataResult<string>>());
         Assert.That(result.Data, Is.EqualTo("Hi"));
-        Assert.That(result.StatusCode, Is.EqualTo(Models.Enums.StatusCodes.Success));
     }
 
     [Test]

@@ -1,14 +1,9 @@
 ﻿using PortfolioManager.Managers.Services.Interfaces;
 
 namespace PortfolioManager.Managers.Services;
-public class LogService : ILogService
+public class LogService(Serilog.ILogger logger) : ILogService
 {
-    private readonly Serilog.ILogger logger;
-
-    public LogService(Serilog.ILogger logger)
-    {
-        this.logger = logger.ForContext("CustomLog", true);
-    }
+    private readonly Serilog.ILogger logger = logger.ForContext("CustomLog", true);
 
     public void LogCustomInformation(string message)
     {
