@@ -30,11 +30,13 @@ public static class ResultExtension
         }
 
         var stream = new MemoryStream(result.Data.FileData);
+
         return new FileStreamResult(stream, result.Data.ContentType)
         {
             FileDownloadName = result.Data.FileName,
         };
     }
+
     public static IActionResult ConvertToFileStreamResult(this DataResult<UserFile> result)
     {
         var errorResult = GetErrorResultIfInvalid(result);
@@ -45,10 +47,29 @@ public static class ResultExtension
         }
 
         var stream = new MemoryStream(result.Data.File);
+
         return new FileStreamResult(stream, result.Data.ContentType)
         {
             FileDownloadName = result.Data.FileName,
         };
+    }
+
+    public static IResult ConvertToResult<T>(this DataResult<T> result)
+    {
+        var errorResult = GetErrorResultIfInvalid(result);
+
+        if (errorResult is not null)
+        {
+            if(result.StatusCode == Models.Enums.StatusCodes.NotFound)
+            {
+                return Results.NotFound(errorResult);
+
+            }
+
+            return Results.BadRequest(errorResult);
+        }
+
+        return Results.Ok(result);
     }
 
     private static IActionResult GetErrorResultIfInvalid<T>(DataResult<T> result)

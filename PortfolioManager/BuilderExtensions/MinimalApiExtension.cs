@@ -1,4 +1,5 @@
-﻿using PortfolioManager.Managers.Services.Interfaces;
+﻿using PortfolioManager.Extensions;
+using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.User;
 
 namespace PortfolioManager.BuilderExtensions;
@@ -10,13 +11,13 @@ public static class MinimalApiExtension
         app.MapPost("/Register", async (RegisterUser registerUser, IAuthService authService) =>
         {
             var result = await authService.RegisterUserAsync(registerUser);
-            return result;
+            return result.ConvertToResult();
         });
 
         app.MapPost("/Login", async (LoginUser loginUser, IAuthService authService) =>
         {
             var result = await authService.LoginUserAsync(loginUser);
-            return result;
+            return result.ConvertToResult();
         });
 
         app.MapPost("/Logout", async (IAuthService authService) =>
