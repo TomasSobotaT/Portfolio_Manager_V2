@@ -4,7 +4,7 @@ namespace PortfolioManager.Models.Models.PersonalIdentificationNumber;
 
 public class PersonalIdentificationNumber
 {
-    private string rawValue;
+    public string RawValue {  get; private set; }
 
     public DateTime BirthDate { get; private set; }
 
@@ -16,7 +16,10 @@ public class PersonalIdentificationNumber
 
     public static bool TryParse(string text, out PersonalIdentificationNumber personalIdentificationNumber)
     {
-        personalIdentificationNumber = null;
+        personalIdentificationNumber = new()
+        {
+            RawValue = text
+        };
 
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -71,9 +74,17 @@ public class PersonalIdentificationNumber
             return false;
         }
 
-        var date = DateTime.TryParse()
+       if(DateTime.TryParse($"{year}{month}{ text[4..6]}", out var date))
+       {
+            return false;
+       }
 
-        personalIdentificationNumber.BirthDate = new DateTime(year, month, int.Parse(text[4..6]));
+        personalIdentificationNumber.SequenceNumber = int.Parse(text[6..8]);
+
+        if (year >= 1954 && long.Parse(text) % 11 > 0)
+        {
+           return false;
+        }
 
         return true;
     }
