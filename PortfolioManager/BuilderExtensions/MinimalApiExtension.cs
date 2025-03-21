@@ -1,4 +1,5 @@
-﻿using PortfolioManager.Extensions;
+﻿using Microsoft.AspNetCore.Mvc;
+using PortfolioManager.Extensions;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.User;
 
@@ -24,5 +25,12 @@ public static class MinimalApiExtension
         {
             //TODO: token blacklist v cache
         });
+
+        app.MapPost("/CheckPersonalIdentificationNumber", (IPersonalIdentificationNumberValidationService personalIdentificationNumberValidationService, [FromBodyAttribute]string text) =>
+        {
+           var result = personalIdentificationNumberValidationService.Validate(text);
+           return result.ConvertToResult();
+        })
+        .WithTags("Tools");
     }
 }
