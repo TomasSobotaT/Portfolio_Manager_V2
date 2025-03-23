@@ -19,7 +19,6 @@ public class OpenAIServiceTests
     {
         openAIRepositoryMock = new Mock<IOpenAIRepository>();
         openAIService = new OpenAIService(openAIRepositoryMock.Object);
-
     }
 
     [Test]

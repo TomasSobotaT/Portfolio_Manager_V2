@@ -16,14 +16,14 @@ public class PersonalIdentificationNumberValidationService : IPersonalIdentifica
 
         if (string.IsNullOrWhiteSpace(text))
         {
-            return new ErrorStatusResult($"Invalid Personal Identification Number");
+            return new ErrorStatusResult("Invalid Personal Identification Number");
         }
 
         text = Regex.Replace(text, @"\D", string.Empty);
 
         if (text.Length < 9 || text.Length > 10)
         {
-            return new ErrorStatusResult($"Invalid Personal Identification Number");
+            return new ErrorStatusResult("Invalid Personal Identification Number");
         }
 
         var year = int.Parse(text[..2]);
@@ -63,12 +63,12 @@ public class PersonalIdentificationNumberValidationService : IPersonalIdentifica
         }
         else
         {
-            return new ErrorStatusResult($"Invalid Personal Identification Number");
+            return new ErrorStatusResult("Invalid Personal Identification Number");
         }
 
         if (!DateTime.TryParse($"{year}-{month}-{text[4..6]}", out var date))
         {
-            return new ErrorStatusResult($"Invalid Personal Identification Number");
+            return new ErrorStatusResult("Invalid Personal Identification Number");
         }
 
         personalIdentificationNumber.BirthDate = date;
@@ -77,7 +77,7 @@ public class PersonalIdentificationNumberValidationService : IPersonalIdentifica
 
         if (year >= 1954 && year < 2022 && long.Parse(text) % 11 > 0)
         {
-            return new ErrorStatusResult($"Invalid Personal Identification Number");
+            return new ErrorStatusResult("Invalid Personal Identification Number");
         }
 
         personalIdentificationNumber.IsValid = true;
