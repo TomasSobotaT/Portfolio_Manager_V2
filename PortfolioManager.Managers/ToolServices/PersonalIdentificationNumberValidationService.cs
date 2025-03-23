@@ -1,11 +1,11 @@
-﻿using PortfolioManager.Managers.Services.Interfaces;
-using PortfolioManager.Models.Models.PersonalIdentificationNumber;
+﻿using PortfolioManager.Managers.ToolServices.Interfaces;
 using PortfolioManager.Models.Results;
+using PortfolioManager.Models.ToolModels;
 using System.Text.RegularExpressions;
 
-namespace PortfolioManager.Managers.Services.Tools;
+namespace PortfolioManager.Managers.Tools;
 
-public class PersonalIdentificationNumberValidationService: IPersonalIdentificationNumberValidationService
+public class PersonalIdentificationNumberValidationService : IPersonalIdentificationNumberValidationService
 {
     public DataResult<PersonalIdentificationNumber> Validate(string text)
     {

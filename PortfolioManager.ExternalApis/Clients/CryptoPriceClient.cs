@@ -5,10 +5,6 @@ namespace PortfolioManager.ExternalApis.Services;
 
 public class CryptoPriceClient(HttpClient httpClient, IExternalApiSettings externalApiSettings) : ICryptoPriceClient
 {
-    private readonly HttpClient httpClient = httpClient;
-
-    private readonly IExternalApiSettings externalApiSettings = externalApiSettings;
-
     public async Task<string> GetCryptoPriceAsync(string cryptoName, string currencyName)
     {
         var url = $"{externalApiSettings.CryptoPriceApiSuffix1}{cryptoName.ToLower().Trim()}{externalApiSettings.CryptoPriceApiSuffix2}{currencyName.ToLower().Trim()}";

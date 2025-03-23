@@ -1,10 +1,10 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace PortfolioManager.Models.Models.PersonalIdentificationNumber;
+namespace PortfolioManager.Models.ToolModels;
 
 public class PersonalIdentificationNumber
 {
-    public string RawValue {  get; init; }
+    public string RawValue { get; init; }
 
     public DateTime? BirthDate { get; set; }
 

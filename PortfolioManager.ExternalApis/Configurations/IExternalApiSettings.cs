@@ -19,4 +19,6 @@ public interface IExternalApiSettings
     string CryptoPriceApiSuffix1 { get; }
 
     string CryptoPriceApiSuffix2 { get; }
+
+    string AresEconomicSubjectUrl { get; }
 }

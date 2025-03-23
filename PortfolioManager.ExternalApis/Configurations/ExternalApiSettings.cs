@@ -19,5 +19,7 @@ public class ExternalApiSettings : IExternalApiSettings
     public string CryptoPriceApiSuffix1 { get; set; }
 
     public string CryptoPriceApiSuffix2 { get; set; }
+
+    public string AresEconomicSubjectUrl { get; set; }
 }
 

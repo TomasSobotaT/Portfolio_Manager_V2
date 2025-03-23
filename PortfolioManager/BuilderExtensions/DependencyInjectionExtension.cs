@@ -11,7 +11,9 @@ using PortfolioManager.AI.Repositories.Interfaces;
 using PortfolioManager.AI.Repositories;
 using PortfolioManager.AI.Settings;
 using PortfolioManager.Managers.Configurations;
-using PortfolioManager.Managers.Services.Tools;
+using PortfolioManager.Managers.Tools;
+using PortfolioManager.Managers.ToolServices.Interfaces;
+using PortfolioManager.Managers.ToolServices;
 
 namespace PortfolioManager.BuilderExtensions;
 
@@ -34,6 +36,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IUserRoleService, UserRoleService>();
         services.AddScoped<IPersonalIdentificationNumberValidationService, PersonalIdentificationNumberValidationService>();
+        services.AddScoped<ICompanyIdValidationService, CompanyIdValidationService>();
 
         services.AddScoped<ICommodityRepository, CommodityRepository>();
         services.AddScoped<ICurrencyRepository, CurrencyRepository>();
