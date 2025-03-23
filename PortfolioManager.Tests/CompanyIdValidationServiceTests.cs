@@ -48,7 +48,6 @@ public class CompanyIdValidationServiceTests
                 return dest;
             });
 
-
         var result = await companyIdValidationService.ValidateAsync("64945880");
 
         Assert.IsNotNull(result);
