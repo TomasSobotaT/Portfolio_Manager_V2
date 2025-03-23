@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Moq;
+﻿using Moq;
 using PortfolioManager.AI.Repositories.Interfaces;
 using PortfolioManager.Managers.Services;
 using PortfolioManager.Managers.Services.Interfaces;
-using PortfolioManager.Models.Enums;
 using PortfolioManager.Models.Results;
 
 namespace PortfolioManager.Tests;

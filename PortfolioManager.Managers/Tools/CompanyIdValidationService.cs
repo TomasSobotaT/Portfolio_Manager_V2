@@ -82,6 +82,5 @@ public class CompanyIdValidationService(IAresClient aresClient, IMapper mapper) 
         }
 
         return companyIdControlNumber == 11 - modulo;
-
     }
 }
