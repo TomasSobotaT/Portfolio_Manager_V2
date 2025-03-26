@@ -2,6 +2,8 @@
 
 public interface IUserContext
 {
+    string GetToken();
+
     int GetUserId();
 
     string GetUserIPAdress();

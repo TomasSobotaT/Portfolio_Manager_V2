@@ -64,6 +64,16 @@ public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, IT
 
         return new ErrorStatusResult("Login failed");
     }
+    
+    public void Logout()
+    {
+        var token = userContext.GetToken();
+
+        if (token is not null) 
+        {
+            // TODO: Přidat na blackLIst
+        }
+    }
 
     private void LogUserInfo(UserEntity userEntity)
     {

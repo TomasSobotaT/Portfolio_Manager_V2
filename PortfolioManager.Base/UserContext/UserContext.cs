@@ -14,7 +14,7 @@ public class UserContext(IHttpContextAccessor contextAccessor) : IUserContext
 
     public int GetUserId()
     {
-        var userIdString =  contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userIdString = contextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
         if (int.TryParse(userIdString, out int userId))
         {
             return userId;
@@ -25,13 +25,25 @@ public class UserContext(IHttpContextAccessor contextAccessor) : IUserContext
 
     public string GetUserIPAdress()
     {
-        var forwardedHeader = contextAccessor.HttpContext?.Request?.Headers["X-Forwarded-For"].FirstOrDefault();
+        var ipAddress = contextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
 
-        if (!string.IsNullOrEmpty(forwardedHeader))
+        if (!string.IsNullOrWhiteSpace(ipAddress))
         {
-            return forwardedHeader;
+            return ipAddress;
         }
 
-        return contextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "Unknown";
+        return contextAccessor.HttpContext?.Request?.Headers["X-Forwarded-For"].FirstOrDefault() ?? "Unknown";
+    }
+
+    public string GetToken()
+    {
+        var authorizationHeader = contextAccessor.HttpContext?.Request?.Headers?.Authorization.FirstOrDefault();
+
+        if (!string.IsNullOrWhiteSpace(authorizationHeader) && authorizationHeader.StartsWith("Bearer "))
+        {
+            return authorizationHeader["Bearer ".Length..].Trim();
+        }
+
+        return null;
     }
 }

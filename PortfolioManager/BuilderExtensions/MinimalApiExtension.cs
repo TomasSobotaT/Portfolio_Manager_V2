@@ -1,8 +1,9 @@
 ﻿    using Microsoft.AspNetCore.Mvc;
     using PortfolioManager.Extensions;
     using PortfolioManager.Managers.Services.Interfaces;
-    using PortfolioManager.Managers.ToolServices.Interfaces;
+using PortfolioManager.Managers.ToolServices.Interfaces;
     using PortfolioManager.Models.Models.User;
+using static System.Net.Mime.MediaTypeNames;
 
     namespace PortfolioManager.BuilderExtensions;
 
@@ -25,9 +26,10 @@
                 return result.ConvertToResult();
             });
 
-            authGroup.MapPost("/logout", async (IAuthService authService) =>
+            authGroup.MapPost("/logout", (IAuthService authService) =>
             {
-                //TODO: token blacklist v cache
+                var result = authService.Logout();
+                return Results.Ok();
             });
 
             toolsGroup.MapPost("/checkPersonalIdentificationNumber", (IPersonalIdentificationNumberValidationService personalIdentificationNumberValidationService, [FromBodyAttribute] string text) =>
