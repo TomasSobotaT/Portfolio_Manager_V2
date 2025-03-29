@@ -53,6 +53,8 @@ app.UseCustomCors();
 
 app.UseSwaggerOptions();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseMiddleware<LoggingMiddleware>();
 
 app.UseMiddleware<JwtBlacklistMiddleware>();
