@@ -2,9 +2,6 @@
 
 public class LoggingMiddleware(RequestDelegate next, Serilog.ILogger logger)
 {
-    private readonly RequestDelegate next = next;
-    private readonly Serilog.ILogger logger = logger;
-
     public async Task Invoke(HttpContext context)
     {
         string userId = "Unknown";

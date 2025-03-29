@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using PortfolioManager.BuilderExtensions;
 using PortfolioManager.Configurations;
 using PortfolioManager.Data.Context;
+using PortfolioManager.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,9 +34,16 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerOptions();
 
+builder.Services.AddMemoryCache();
+
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 
-app.UseDeveloperExceptionPage();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 
 app.UseHttpsRedirection();
 
@@ -45,11 +53,13 @@ app.UseCustomCors();
 
 app.UseSwaggerOptions();
 
+app.UseMiddleware<LoggingMiddleware>();
+
+app.UseMiddleware<JwtBlacklistMiddleware>();
+
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-app.UseMiddleware<LoggingMiddleware>();
 
 app.UseHangfire();
 

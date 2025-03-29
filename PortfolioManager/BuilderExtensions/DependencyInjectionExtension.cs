@@ -14,6 +14,7 @@ using PortfolioManager.Managers.Configurations;
 using PortfolioManager.Managers.Tools;
 using PortfolioManager.Managers.ToolServices.Interfaces;
 using PortfolioManager.Managers.ToolServices;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace PortfolioManager.BuilderExtensions;
 
@@ -21,34 +22,35 @@ public static class DependencyInjectionExtension
 {
     public static void AddDependencyInjectionRegistration(this IServiceCollection services)
     {
-        services.AddScoped<IAuthService, AuthService>();
-        services.AddScoped<ICommodityService, CommodityService>();
-        services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<ICurrencyService, CurrencyService>();
-        services.AddScoped<IRecordService, RecordService>();
-        services.AddScoped<IUpdateDatabaseService, UpdateDatabaseService>();
-        services.AddScoped<IUpdateDatabaseService, UpdateDatabaseService>();
-        services.AddScoped<IOpenAIService, OpenAIService>();
-        services.AddScoped<IUserDocumentService, UserDocumentService>();
-        services.AddScoped<IUserFileService, UserFileService>();
-        services.AddScoped<IMailService, MailService>();
-        services.AddScoped<ILogService, LogService>();
-        services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IUserRoleService, UserRoleService>();
-        services.AddScoped<IPersonalIdentificationNumberValidationService, PersonalIdentificationNumberValidationService>();
-        services.AddScoped<ICompanyIdValidationService, CompanyIdValidationService>();
+        services.TryAddScoped<IAuthService, AuthService>();
+        services.TryAddScoped<ICommodityService, CommodityService>();
+        services.TryAddScoped<ITokenService, TokenService>();
+        services.TryAddScoped<ICurrencyService, CurrencyService>();
+        services.TryAddScoped<IRecordService, RecordService>();
+        services.TryAddScoped<IUpdateDatabaseService, UpdateDatabaseService>();
+        services.TryAddScoped<IUpdateDatabaseService, UpdateDatabaseService>();
+        services.TryAddScoped<IOpenAIService, OpenAIService>();
+        services.TryAddScoped<IUserDocumentService, UserDocumentService>();
+        services.TryAddScoped<IUserFileService, UserFileService>();
+        services.TryAddScoped<IMailService, MailService>();
+        services.TryAddScoped<ILogService, LogService>();
+        services.TryAddScoped<IUserService, UserService>();
+        services.TryAddScoped<IUserRoleService, UserRoleService>();
+        services.TryAddScoped<IPersonalIdentificationNumberValidationService, PersonalIdentificationNumberValidationService>();
+        services.TryAddScoped<ICompanyIdValidationService, CompanyIdValidationService>();
+        services.TryAddScoped<IJwtBlackListService, JwtBlackListService>();
 
-        services.AddScoped<ICommodityRepository, CommodityRepository>();
-        services.AddScoped<ICurrencyRepository, CurrencyRepository>();
-        services.AddScoped<IRecordRepository, RecordRepository>();
-        services.AddScoped<IMetalPriceApiRepository, MetalPriceApiRepository>();
-        services.AddScoped<ICryptoPriceApiRepository, CryptoPriceApiRepository>();
-        services.AddScoped<ICurrencyPriceApiRepository, CurrencyPriceApiRepository>();
-        services.AddScoped<IOpenAIRepository, OpenAIRepository>();
-        services.AddScoped<IUserDocumentRepository, UserDocumentRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.TryAddScoped<ICommodityRepository, CommodityRepository>();
+        services.TryAddScoped<ICurrencyRepository, CurrencyRepository>();
+        services.TryAddScoped<IRecordRepository, RecordRepository>();
+        services.TryAddScoped<IMetalPriceApiRepository, MetalPriceApiRepository>();
+        services.TryAddScoped<ICryptoPriceApiRepository, CryptoPriceApiRepository>();
+        services.TryAddScoped<ICurrencyPriceApiRepository, CurrencyPriceApiRepository>();
+        services.TryAddScoped<IOpenAIRepository, OpenAIRepository>();
+        services.TryAddScoped<IUserDocumentRepository, UserDocumentRepository>();
+        services.TryAddScoped<IUserRepository, UserRepository>();
 
-        services.AddScoped<IUserContext, UserContext>();
+        services.TryAddScoped<IUserContext, UserContext>();
     }
 
     public static void AddSettingsRegistration(this IServiceCollection services, IConfiguration configuration)

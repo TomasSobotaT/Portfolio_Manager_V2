@@ -48,7 +48,5 @@ public static class AuthExtension
                 }
             };
         });
-
-        services.AddHttpContextAccessor();
     }
 }

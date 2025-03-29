@@ -9,7 +9,7 @@ using PortfolioManager.Models.Results;
 
 namespace PortfolioManager.Managers.Services;
 
-public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, ITokenService tokenService, ILogService logService, IUserContext userContext) : IAuthService
+public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, ITokenService tokenService, ILogService logService, IJwtBlackListService jwtBlackListService, IUserContext userContext) : IAuthService
 {
     public async Task<DataResult<AuthResult>> RegisterUserAsync(RegisterUser registerUser)
     {
@@ -67,12 +67,7 @@ public class AuthService(UserManager<UserEntity> userManager, IMapper mapper, IT
     
     public void Logout()
     {
-        var token = userContext.GetToken();
-
-        if (token is not null) 
-        {
-            // TODO: Přidat na blackLIst
-        }
+        jwtBlackListService.BlackListJwttoken();
     }
 
     private void LogUserInfo(UserEntity userEntity)
