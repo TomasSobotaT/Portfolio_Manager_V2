@@ -11,8 +11,8 @@ public class ElasticSearchService(IElasticSearchRepository elasticSearchReposito
         await elasticSearchRepository.IndexDocumentAsync(userDocumentSearchRequest);
     }
 
-    public async Task<List<UserDocumentSearchResult>> SearchDocumentsAsync(string query)
+    public async Task<List<UserDocumentSearchResult>> SearchDocumentsAsync(string searchText, int userId)
     {
-        return await elasticSearchRepository.SearchDocumentsAsync(query);
+        return await elasticSearchRepository.SearchDocumentsAsync(searchText, userId);
     }
 }

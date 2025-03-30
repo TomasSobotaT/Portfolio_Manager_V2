@@ -2,7 +2,7 @@
 
 public class ElasticSearchSettings : IElasticSearchSettings
 {
-    public string Uri { get; set; }
+    public string Url { get; set; }
 
     public string CloudId { get; set; }
 

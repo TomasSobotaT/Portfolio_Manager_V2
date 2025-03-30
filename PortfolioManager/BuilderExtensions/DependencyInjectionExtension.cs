@@ -18,7 +18,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using PortfolioManager.Elasticsearch.Repositories.Interfaces;
 using PortfolioManager.Elasticsearch.Repositories;
 using PortfolioManager.Elasticsearch.Configurations;
-using Microsoft.Extensions.Options;
 
 namespace PortfolioManager.BuilderExtensions;
 
@@ -74,7 +73,7 @@ public static class DependencyInjectionExtension
         services.AddSingleton<IMailSettings>(mailISettings);
 
         var elasticSearchSettings = new ElasticSearchSettings();
-        configuration.GetSection("ElasticsSearchSettings").Bind(elasticSearchSettings);
+        configuration.GetSection("ElasticSearchSettings").Bind(elasticSearchSettings);
         services.AddSingleton<IElasticSearchSettings>(elasticSearchSettings);
     }
 }

@@ -4,7 +4,7 @@ namespace PortfolioManager.Elasticsearch.Repositories.Interfaces;
 
 public interface IElasticSearchRepository
 {
-    Task IndexDocumentAsync(UserDocumentIndexRequest entity);
+    Task<bool> IndexDocumentAsync(UserDocumentIndexRequest userDocumentIndexRequest);
 
-    Task<List<UserDocumentSearchResult>> SearchDocumentsAsync(string query);
+    Task<List<UserDocumentSearchResult>> SearchDocumentsAsync(string query, int userId);
 }

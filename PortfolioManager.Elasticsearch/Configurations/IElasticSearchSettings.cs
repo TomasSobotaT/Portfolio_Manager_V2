@@ -2,7 +2,7 @@
 
 public interface IElasticSearchSettings
 {
-    string Uri { get; set; }
+    string Url { get; set; }
 
     string CloudId { get; set; }
 
