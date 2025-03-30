@@ -15,6 +15,10 @@ using PortfolioManager.Managers.Tools;
 using PortfolioManager.Managers.ToolServices.Interfaces;
 using PortfolioManager.Managers.ToolServices;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using PortfolioManager.Elasticsearch.Repositories.Interfaces;
+using PortfolioManager.Elasticsearch.Repositories;
+using PortfolioManager.Elasticsearch.Configurations;
+using Microsoft.Extensions.Options;
 
 namespace PortfolioManager.BuilderExtensions;
 
@@ -39,6 +43,7 @@ public static class DependencyInjectionExtension
         services.TryAddScoped<IPersonalIdentificationNumberValidationService, PersonalIdentificationNumberValidationService>();
         services.TryAddScoped<ICompanyIdValidationService, CompanyIdValidationService>();
         services.TryAddScoped<IJwtBlackListService, JwtBlackListService>();
+        services.TryAddScoped<IElasticSearchService, ElasticSearchService>();
 
         services.TryAddScoped<ICommodityRepository, CommodityRepository>();
         services.TryAddScoped<ICurrencyRepository, CurrencyRepository>();
@@ -49,6 +54,7 @@ public static class DependencyInjectionExtension
         services.TryAddScoped<IOpenAIRepository, OpenAIRepository>();
         services.TryAddScoped<IUserDocumentRepository, UserDocumentRepository>();
         services.TryAddScoped<IUserRepository, UserRepository>();
+        services.TryAddScoped<IElasticSearchRepository, ElasticSearchRepository>();
 
         services.TryAddScoped<IUserContext, UserContext>();
     }
@@ -66,5 +72,9 @@ public static class DependencyInjectionExtension
         var mailISettings = new MailSettings();
         configuration.GetSection("MailSettings").Bind(mailISettings);
         services.AddSingleton<IMailSettings>(mailISettings);
+
+        var elasticSearchSettings = new ElasticSearchSettings();
+        configuration.GetSection("ElasticsSearchSettings").Bind(elasticSearchSettings);
+        services.AddSingleton<IElasticSearchSettings>(elasticSearchSettings);
     }
 }

@@ -6,6 +6,7 @@ using PortfolioManager.Models.Models.Currency;
 using PortfolioManager.Models.Models.File;
 using PortfolioManager.Models.Models.Record;
 using PortfolioManager.Models.Models.User;
+using PortfolioManager.Models.Models.UserDocument;
 using PortfolioManager.Models.Responses;
 using PortfolioManager.Models.ToolModels;
 
@@ -30,6 +31,7 @@ public class AutomapperConfiguration : Profile
 
         CreateMap<UserDocumentEntity, UserDocument>();
         CreateMap<UserDocumentEntity, UserDocumentOutputModel>();
+        CreateMap<UserDocumentEntity, UserDocumentIndexRequest>();
 
         CreateMap<UserEditModel, UserEntity>();
         CreateMap<UserEntity, User>();

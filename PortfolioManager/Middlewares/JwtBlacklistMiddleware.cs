@@ -2,7 +2,7 @@
 
 namespace PortfolioManager.Middlewares;
 
-public class JwtBlacklistMiddleware(RequestDelegate next, Serilog.ILogger logger)
+public class JwtBlacklistMiddleware(RequestDelegate next)
 {
     public async Task Invoke(HttpContext context, IJwtBlackListService jwtBlackListService)
     {

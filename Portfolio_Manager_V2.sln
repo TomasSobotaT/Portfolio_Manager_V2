@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioManager.AI", "Port
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioManager.Tests", "PortfolioManager.Tests\PortfolioManager.Tests.csproj", "{AF0FF93A-6EE5-41D5-AB8A-920966926A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioManager.NSwagClient", "PortfolioManager.NSwagClient\PortfolioManager.NSwagClient.csproj", "{03B9730F-EA53-456C-849C-3C69204976CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PortfolioManager.NSwagClient", "PortfolioManager.NSwagClient\PortfolioManager.NSwagClient.csproj", "{03B9730F-EA53-456C-849C-3C69204976CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioManager.Elasticsearch", "PortfolioManager.Elasticsearch\PortfolioManager.Elasticsearch.csproj", "{F9CFE828-C350-460D-8F7D-22298A010852}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{03B9730F-EA53-456C-849C-3C69204976CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03B9730F-EA53-456C-849C-3C69204976CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03B9730F-EA53-456C-849C-3C69204976CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9CFE828-C350-460D-8F7D-22298A010852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9CFE828-C350-460D-8F7D-22298A010852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9CFE828-C350-460D-8F7D-22298A010852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9CFE828-C350-460D-8F7D-22298A010852}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,15 +2,15 @@
 using Microsoft.AspNetCore.Http;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Base.Helpers;
-using PortfolioManager.Data.Repositories;
 using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.File;
+using PortfolioManager.Models.Models.UserDocument;
 using PortfolioManager.Models.Results;
 
 namespace PortfolioManager.Managers.Services;
 
-public class UserDocumentService(IUserDocumentRepository userDocumentRepository, IMapper mapper) : IUserDocumentService
+public class UserDocumentService(IUserDocumentRepository userDocumentRepository, IElasticSearchService elasticSearchService, IMapper mapper) : IUserDocumentService
 {
     private const int MaxFileSize = 10_000_000;
 
@@ -31,10 +31,14 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
                 ContentType = userDocumentEditModel.File.ContentType,
                 Note = userDocumentEditModel.Note,
                 FileData = await GetByteArrayFromFileAsync(userDocumentEditModel.File),
-            };
+            }; 
 
             await userDocumentRepository.AddAsync(userDocumentEntity);
             userDocumentRepository.Commit();
+
+            var userDocumentIndexRequest = mapper.Map<UserDocumentIndexRequest>(userDocumentEntity);
+            userDocumentIndexRequest.DocumentTextContent = DocumentContentExtractHelper.ExtractTextFromDocument(userDocumentEntity.FileData, userDocumentEntity.ContentType);
+            await elasticSearchService.IndexDocumentAsync(userDocumentIndexRequest);
 
             return true;
         }
