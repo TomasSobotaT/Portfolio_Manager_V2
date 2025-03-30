@@ -23,6 +23,7 @@ public class ElasticSearchRepository : IElasticSearchRepository
         var response = await elasticsearchClient.IndexAsync(userDocumentIndexRequest);
         return response.IsSuccess();
     }
+
     public async Task<List<UserDocumentSearchResult>> SearchDocumentsAsync(string searchText, int userId)
     {
         var response = await elasticsearchClient.SearchAsync<UserDocumentIndexRequest>(s => s
@@ -56,6 +57,4 @@ public class ElasticSearchRepository : IElasticSearchRepository
 
         return results;
     }
-
-
 }
