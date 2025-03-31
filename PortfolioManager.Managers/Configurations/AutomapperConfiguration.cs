@@ -6,7 +6,6 @@ using PortfolioManager.Models.Models.Currency;
 using PortfolioManager.Models.Models.File;
 using PortfolioManager.Models.Models.Record;
 using PortfolioManager.Models.Models.User;
-using PortfolioManager.Models.Models.UserDocument;
 using PortfolioManager.Models.Responses;
 using PortfolioManager.Models.ToolModels;
 
@@ -31,13 +30,12 @@ public class AutomapperConfiguration : Profile
 
         CreateMap<UserDocumentEntity, UserDocument>();
         CreateMap<UserDocumentEntity, UserDocumentOutputModel>();
-        CreateMap<UserDocumentEntity, UserDocumentIndexRequest>();
 
         CreateMap<UserEditModel, UserEntity>();
         CreateMap<UserEntity, User>();
         CreateMap<User, UserEditModel>();
 
-        CreateMap<AresEconomicSubjectResponse, CompanyId>()
+        CreateMap<AresEconomicSubjectResponse, CompanyIdModel>()
             .ForMember(dest => dest.CompanyName, opt => opt.MapFrom(src => src.CompanyName))
             .ForMember(dest => dest.CompanyAddress,
                 opt => opt.MapFrom(src => src.CompanyAddress != null ? src.CompanyAddress.Address : null));

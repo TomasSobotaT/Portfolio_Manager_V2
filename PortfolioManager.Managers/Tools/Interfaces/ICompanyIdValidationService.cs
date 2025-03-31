@@ -5,5 +5,5 @@ namespace PortfolioManager.Managers.ToolServices.Interfaces;
 
 public interface ICompanyIdValidationService
 {
-    Task<DataResult<CompanyId>> ValidateAsync(string text);
+    Task<DataResult<CompanyIdModel>> ValidateAsync(string text);
 }

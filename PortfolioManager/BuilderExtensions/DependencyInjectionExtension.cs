@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using PortfolioManager.Elasticsearch.Repositories.Interfaces;
 using PortfolioManager.Elasticsearch.Repositories;
 using PortfolioManager.Elasticsearch.Configurations;
+using PortfolioManager.Managers.Tools.Interfaces;
 
 namespace PortfolioManager.BuilderExtensions;
 
@@ -43,6 +44,7 @@ public static class DependencyInjectionExtension
         services.TryAddScoped<ICompanyIdValidationService, CompanyIdValidationService>();
         services.TryAddScoped<IJwtBlackListService, JwtBlackListService>();
         services.TryAddScoped<IElasticSearchService, ElasticSearchService>();
+        services.TryAddScoped<IPhoneNumberValidationService, PhoneNumberValidationService>();
 
         services.TryAddScoped<ICommodityRepository, CommodityRepository>();
         services.TryAddScoped<ICurrencyRepository, CurrencyRepository>();

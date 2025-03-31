@@ -1,4 +1,5 @@
-﻿using PortfolioManager.Models.Results.Base;
+﻿using PortfolioManager.Base.Enums;
+using PortfolioManager.Models.Results.Base;
 
 namespace PortfolioManager.Models.Results;
 
@@ -8,7 +9,7 @@ public class DataResult<T> : ErrorResult
 
     public static implicit operator DataResult<T>(T data)
     {
-        return new() { Data = data, StatusCode = Enums.StatusCodes.Success };
+        return new() { Data = data, StatusCode = StatusCodes.Success };
     }
 
     public static implicit operator DataResult<T>(ErrorStatusResult errorResult)

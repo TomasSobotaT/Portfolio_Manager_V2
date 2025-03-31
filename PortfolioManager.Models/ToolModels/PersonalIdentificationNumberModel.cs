@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace PortfolioManager.Models.ToolModels;
 
-namespace PortfolioManager.Models.ToolModels;
-
-public class PersonalIdentificationNumber
+public class PersonalIdentificationNumberModel
 {
     public string RawValue { get; init; }
 

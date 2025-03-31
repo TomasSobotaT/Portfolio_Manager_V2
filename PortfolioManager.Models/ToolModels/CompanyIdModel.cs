@@ -1,6 +1,6 @@
 ﻿namespace PortfolioManager.Models.ToolModels;
 
-public class CompanyId
+public class CompanyIdModel
 {
     public string RawValue { get; init; }
 

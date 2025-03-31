@@ -38,8 +38,8 @@ public class CompanyIdValidationServiceTests
         mapperMock
             .Setup(map => map.Map(
                 It.IsAny<AresEconomicSubjectResponse>(),
-                It.IsAny<CompanyId>()))
-            .Returns((AresEconomicSubjectResponse source, CompanyId dest) =>
+                It.IsAny<CompanyIdModel>()))
+            .Returns((AresEconomicSubjectResponse source, CompanyIdModel dest) =>
             {
                 dest.IsValid = true;
                 dest.CompanyName = source.CompanyName;
@@ -51,7 +51,7 @@ public class CompanyIdValidationServiceTests
         var result = await companyIdValidationService.ValidateAsync("64945880");
 
         Assert.IsNotNull(result);
-        Assert.That(result.Data, Is.TypeOf<CompanyId>());
+        Assert.That(result.Data, Is.TypeOf<CompanyIdModel>());
         Assert.That(result.Data.IsValid, Is.EqualTo(true));
         Assert.That(result.Data.RawValue, Is.EqualTo("64945880"));
         Assert.That(result.Data.CompanyAddress, Is.EqualTo("TestCompanyAddress"));
@@ -71,9 +71,9 @@ public class CompanyIdValidationServiceTests
         };
     }
 
-    private CompanyId GetClientIdTest()
+    private CompanyIdModel GetClientIdTest()
     {
-        return new CompanyId
+        return new CompanyIdModel
         {
             CompanyIdResult = "TestCompanyId",
             CompanyName = "TestCompanyName",

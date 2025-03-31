@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using PortfolioManager.Base.Entities;
-using PortfolioManager.Models.Enums;
+using PortfolioManager.Base.Enums;
 using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.Currency;

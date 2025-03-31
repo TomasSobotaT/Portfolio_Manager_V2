@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PortfolioManager.Base.Entities;
 using PortfolioManager.Managers.Services.Interfaces;
-using PortfolioManager.Models.Enums;
+using PortfolioManager.Base.Enums;
 using PortfolioManager.Models.Results;
 
 namespace PortfolioManager.Managers.Services;

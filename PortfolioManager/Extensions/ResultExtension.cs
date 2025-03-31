@@ -16,7 +16,7 @@ public static class ResultExtension
             return errorResult;
         }
 
-        result.StatusCode = Models.Enums.StatusCodes.Success;
+        result.StatusCode = Base.Enums.StatusCodes.Success;
         return new OkObjectResult(result);
     }
 
@@ -60,7 +60,7 @@ public static class ResultExtension
 
         if (errorResult is not null)
         {
-            if(result.StatusCode == Models.Enums.StatusCodes.NotFound)
+            if(result.StatusCode == Base.Enums.StatusCodes.NotFound)
             {
                 return Results.NotFound(errorResult);
 
@@ -78,7 +78,7 @@ public static class ResultExtension
         {
             return result.StatusCode switch
             {
-                Models.Enums.StatusCodes.NotFound => new NotFoundObjectResult(result),
+                Base.Enums.StatusCodes.NotFound => new NotFoundObjectResult(result),
                 _ => new BadRequestObjectResult(result),
             };
         }

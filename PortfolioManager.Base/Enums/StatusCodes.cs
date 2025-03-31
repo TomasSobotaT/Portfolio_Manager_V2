@@ -1,4 +1,4 @@
-﻿namespace PortfolioManager.Base.Enums;
+﻿namespace PortfolioManager.Models.Enums;
 
 public enum StatusCodes
 {

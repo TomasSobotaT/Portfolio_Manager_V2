@@ -11,9 +11,9 @@ public class CompanyIdValidationService(IAresClient aresClient, IMapper mapper) 
 {
     private readonly List<int> CompanyIdNumberCoeficients = [ 8, 7, 6, 5, 4, 3, 2 ];
 
-    public async Task<DataResult<CompanyId>> ValidateAsync(string text)
+    public async Task<DataResult<CompanyIdModel>> ValidateAsync(string text)
     {
-        var companyId = new CompanyId
+        var companyId = new CompanyIdModel
         {
             RawValue = text
         };

@@ -4,7 +4,7 @@ using PortfolioManager.Models.Results.Base;
 
 namespace PortfolioManager.Middlewares;
 
-public class ExceptionHandlingMiddleware(RequestDelegate next, ILogService logService)
+public class ExceptionHandlingMiddleware(RequestDelegate next, IServiceProvider serviceProvider)
 {
     public async Task Invoke(HttpContext context)
     {
@@ -14,13 +14,16 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, ILogService logSe
 		}
 		catch (Exception ex)
 		{
+            using var scope = serviceProvider.CreateScope();
+            var logService = scope.ServiceProvider.GetRequiredService<ILogService>();
+
             logService.LogCustomError("Internal server error", ex);
 			context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsJsonAsync(
                 new DataResult<ErrorResult>()
                 {
                     Data = null,
-                    StatusCode = Models.Enums.StatusCodes.InternalError,
+                    StatusCode = Base.Enums.StatusCodes.InternalError,
                     Errors = ["Internal server error"],
                 });
 

@@ -1,4 +1,4 @@
-﻿using PortfolioManager.Models.Enums;
+﻿using PortfolioManager.Base.Enums;
 using PortfolioManager.Models.Results.Base;
 
 namespace PortfolioManager.Models.Results;

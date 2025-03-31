@@ -54,7 +54,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
           
         if (userDocumentEntity is null || userDocumentEntity.FileData is null)
         {
-            return new ErrorStatusResult($"File with id {id} not found", Models.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"File with id {id} not found", Base.Enums.StatusCodes.NotFound);
         }
 
         return mapper.Map<UserDocument>(userDocumentEntity);
@@ -66,7 +66,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
 
         if (userDocumentEntities is null || !userDocumentEntities.Any())
         {
-            return new ErrorStatusResult($"No file found", Models.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"No file found", Base.Enums.StatusCodes.NotFound);
         }
 
         var userDocumentOutputModels = mapper.Map<List<UserDocumentOutputModel>>(userDocumentEntities);
@@ -79,7 +79,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
 
         if (userDocumentEntitity is null)
         {
-            return new ErrorStatusResult($"No file found", Models.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"No file found", Base.Enums.StatusCodes.NotFound);
         }
 
         userDocumentRepository.Delete(userDocumentEntitity);

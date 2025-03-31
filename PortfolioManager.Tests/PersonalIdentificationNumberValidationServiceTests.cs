@@ -23,7 +23,7 @@ public class PersonalIdentificationNumberValidationServiceTests
         var result = personalIdentificationNumberValidationService.Validate("850415/123");
 
         Assert.IsNotNull(result);
-        Assert.That(result.Data, Is.TypeOf<PersonalIdentificationNumber>());
+        Assert.That(result.Data, Is.TypeOf<PersonalIdentificationNumberModel>());
         Assert.That(result.Data.IsValid, Is.EqualTo(true));
         Assert.That(result.Data.RawValue, Is.EqualTo("850415/123"));
         Assert.That(result.Data.BirthDate, Is.EqualTo(new DateTime(1885, 4, 15)));
@@ -32,7 +32,7 @@ public class PersonalIdentificationNumberValidationServiceTests
         var result2 = personalIdentificationNumberValidationService.Validate("905223/4565");
 
         Assert.IsNotNull(result2);
-        Assert.That(result2, Is.TypeOf<DataResult<PersonalIdentificationNumber>>());
+        Assert.That(result2, Is.TypeOf<DataResult<PersonalIdentificationNumberModel>>());
         Assert.That(result2.Data.IsValid, Is.EqualTo(true));
         Assert.That(result2.Data.RawValue, Is.EqualTo("905223/4565"));
         Assert.That(result2.Data.BirthDate, Is.EqualTo(new DateTime(1990, 02, 23)));
@@ -49,7 +49,7 @@ public class PersonalIdentificationNumberValidationServiceTests
             var result = personalIdentificationNumberValidationService.Validate(testInput);
 
             Assert.IsNotNull(result);
-            Assert.That(result, Is.TypeOf<DataResult<PersonalIdentificationNumber>>());
+            Assert.That(result, Is.TypeOf<DataResult<PersonalIdentificationNumberModel>>());
             Assert.That(result.Data, Is.Null);
             Assert.That(result.Errors.First(), Is.EqualTo("Invalid Personal Identification Number"));
             Assert.That(result.StatusCode, Is.EqualTo(StatusCodes.BadRequest));

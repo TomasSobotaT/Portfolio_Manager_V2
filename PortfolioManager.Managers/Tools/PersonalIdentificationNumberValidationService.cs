@@ -7,9 +7,9 @@ namespace PortfolioManager.Managers.Tools;
 
 public class PersonalIdentificationNumberValidationService : IPersonalIdentificationNumberValidationService
 {
-    public DataResult<PersonalIdentificationNumber> Validate(string text)
+    public DataResult<PersonalIdentificationNumberModel> Validate(string text)
     {
-        var personalIdentificationNumber = new PersonalIdentificationNumber
+        var personalIdentificationNumber = new PersonalIdentificationNumberModel
         {
             RawValue = text
         };
