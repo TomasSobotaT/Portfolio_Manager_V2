@@ -1,4 +1,4 @@
-﻿using PortfolioManager.Base.Enums;
+﻿using System.Net;
 
 namespace PortfolioManager.Models.Results.Base;
 
@@ -8,5 +8,5 @@ public abstract class ErrorResult
 
     public bool IsValid => Errors is null || Errors.Count == 0;
 
-    public StatusCodes StatusCode { get; set; }
+    public HttpStatusCode StatusCode { get; set; }
 }

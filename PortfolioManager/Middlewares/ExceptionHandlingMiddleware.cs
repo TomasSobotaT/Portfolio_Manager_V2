@@ -1,6 +1,7 @@
 ﻿using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Results;
 using PortfolioManager.Models.Results.Base;
+using System.Net;
 
 namespace PortfolioManager.Middlewares;
 
@@ -23,7 +24,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next, IServiceProvider 
                 new DataResult<ErrorResult>()
                 {
                     Data = null,
-                    StatusCode = Base.Enums.StatusCodes.InternalError,
+                    StatusCode = HttpStatusCode.InternalServerError,
                     Errors = ["Internal server error"],
                 });
 

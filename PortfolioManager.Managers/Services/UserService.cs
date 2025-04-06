@@ -6,6 +6,7 @@ using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Base.Enums;
 using PortfolioManager.Models.Models.User;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 public class UserService(UserManager<UserEntity> userManager, IUserRepository userRepository, IMapper mapper) : IUserService
@@ -16,7 +17,7 @@ public class UserService(UserManager<UserEntity> userManager, IUserRepository us
 
         if (userEntity is null)
         {
-            return new ErrorStatusResult($"User with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"User with id {id} not found", HttpStatusCode.NotFound);
         }
 
         var roles = await userManager.GetRolesAsync(userEntity);
@@ -33,7 +34,7 @@ public class UserService(UserManager<UserEntity> userManager, IUserRepository us
 
         if (userEntities is null || !userEntities.Any())
         {
-            return new ErrorStatusResult($"No user found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"No user found", HttpStatusCode.NotFound);
         }
 
         var users =  mapper.Map<List<User>>(userEntities);
@@ -57,7 +58,7 @@ public class UserService(UserManager<UserEntity> userManager, IUserRepository us
 
         if (userEntity is null)
         {
-            return new ErrorStatusResult($"User with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"User with id {id} not found", HttpStatusCode.NotFound);
         }
 
         userRepository.Delete(userEntity);
@@ -72,7 +73,7 @@ public class UserService(UserManager<UserEntity> userManager, IUserRepository us
 
         if (userEntity is null)
         {
-            return new ErrorStatusResult($"User with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"User with id {id} not found", HttpStatusCode.NotFound);
         }
 
         mapper.Map(userEditModel, userEntity);

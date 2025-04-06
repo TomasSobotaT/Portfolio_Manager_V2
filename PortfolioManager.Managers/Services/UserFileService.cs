@@ -10,6 +10,7 @@ using PortfolioManager.Base.UserContext;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.UserFile;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 
@@ -117,14 +118,14 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
 
         if (!Directory.Exists(userDirectoryPath))
         {
-            return new ErrorStatusResult($"User has no files", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"User has no files", HttpStatusCode.NotFound);
         }
 
         var userFiles =  Directory.GetFiles(userDirectoryPath);
 
         if (userFiles is null || userFiles.Length == 0)
         {
-            return new ErrorStatusResult($"User has no files", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"User has no files", HttpStatusCode.NotFound);
         }
 
         return userFiles.Select(Path.GetFileName).ToList();
@@ -138,14 +139,14 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
 
         if (!Directory.Exists(userDirectoryPath))
         {
-            return new ErrorStatusResult($"User has no files", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"User has no files", HttpStatusCode.NotFound);
         }
 
         var userFilePath = Path.Combine(userDirectoryPath, fileName);
 
         if (!File.Exists(userFilePath))
         {
-            return new ErrorStatusResult($"File '{fileName}' not found", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"File '{fileName}' not found", HttpStatusCode.NotFound);
         }
 
         var provider = new FileExtensionContentTypeProvider();
@@ -167,7 +168,7 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
 
         if (!Directory.Exists(userDirectoryPath))
         {
-            return new ErrorStatusResult($"User has no files", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"User has no files", HttpStatusCode.NotFound);
         }
 
         var userFilePath = Path.Combine(userDirectoryPath, fileName);
@@ -186,7 +187,7 @@ public class UserFileService(IWebHostEnvironment webHostEnvironment, IUserContex
 
         else
         {
-            return new ErrorStatusResult($"File {fileName} not found", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"File {fileName} not found", HttpStatusCode.NotFound);
         }
 
         return true;

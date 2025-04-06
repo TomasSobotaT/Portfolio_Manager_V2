@@ -7,6 +7,7 @@ using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.File;
 using PortfolioManager.Models.Models.UserDocument;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 
@@ -54,7 +55,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
           
         if (userDocumentEntity is null || userDocumentEntity.FileData is null)
         {
-            return new ErrorStatusResult($"File with id {id} not found", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"File with id {id} not found", HttpStatusCode.NotFound);
         }
 
         return mapper.Map<UserDocument>(userDocumentEntity);
@@ -66,7 +67,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
 
         if (userDocumentEntities is null || !userDocumentEntities.Any())
         {
-            return new ErrorStatusResult($"No file found", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"No file found", HttpStatusCode.NotFound);
         }
 
         var userDocumentOutputModels = mapper.Map<List<UserDocumentOutputModel>>(userDocumentEntities);
@@ -79,7 +80,7 @@ public class UserDocumentService(IUserDocumentRepository userDocumentRepository,
 
         if (userDocumentEntitity is null)
         {
-            return new ErrorStatusResult($"No file found", Base.Enums.StatusCodes.NotFound);
+            return new ErrorStatusResult($"No file found", HttpStatusCode.NotFound);
         }
 
         userDocumentRepository.Delete(userDocumentEntitity);

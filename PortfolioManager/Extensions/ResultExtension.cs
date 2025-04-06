@@ -2,6 +2,7 @@
 using PortfolioManager.Models.Models.File;
 using PortfolioManager.Models.Models.UserFile;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Extensions;
 
@@ -16,7 +17,7 @@ public static class ResultExtension
             return errorResult;
         }
 
-        result.StatusCode = Base.Enums.StatusCodes.Success;
+        result.StatusCode = HttpStatusCode.OK;
         return new OkObjectResult(result);
     }
 
@@ -60,7 +61,7 @@ public static class ResultExtension
 
         if (errorResult is not null)
         {
-            if(result.StatusCode == Base.Enums.StatusCodes.NotFound)
+            if(result.StatusCode == HttpStatusCode.NotFound)
             {
                 return Results.NotFound(errorResult);
 
@@ -78,7 +79,7 @@ public static class ResultExtension
         {
             return result.StatusCode switch
             {
-                Base.Enums.StatusCodes.NotFound => new NotFoundObjectResult(result),
+                HttpStatusCode.NotFound => new NotFoundObjectResult(result),
                 _ => new BadRequestObjectResult(result),
             };
         }

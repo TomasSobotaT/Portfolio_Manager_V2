@@ -5,6 +5,7 @@ using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.Record;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 
@@ -16,7 +17,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
         
         if (recordEntity is null)
         {
-            return new ErrorStatusResult($"Record with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Record with id {id} not found", HttpStatusCode.NotFound);
         }
 
         return mapper.Map<Record>(recordEntity);
@@ -51,7 +52,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
 
         if (recordEntity is null)
         {
-            return new ErrorStatusResult($"Record with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Record with id {id} not found", HttpStatusCode.NotFound);
         }
 
         recordRepository.Delete(recordEntity);
@@ -66,7 +67,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
 
         if (recordEntity is null)
         {
-            return new ErrorStatusResult($"Record with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Record with id {id} not found", HttpStatusCode.NotFound);
         }
 
         mapper.Map(recordEditModel, recordEntity);
@@ -84,7 +85,7 @@ public class RecordService(IRecordRepository recordRepository, ICurrencyReposito
 
         if (records is null || !records.Any())
         {
-            return new ErrorStatusResult($"No record found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"No record found", HttpStatusCode.NotFound);
         }
 
         var userRecords = new List<UserRecord>();

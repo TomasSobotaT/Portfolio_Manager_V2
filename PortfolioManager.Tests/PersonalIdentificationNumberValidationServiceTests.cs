@@ -1,6 +1,6 @@
-﻿using PortfolioManager.Managers.Tools;
+﻿using Microsoft.AspNetCore.Http;
+using PortfolioManager.Managers.Tools;
 using PortfolioManager.Managers.ToolServices.Interfaces;
-using PortfolioManager.Models.Enums;
 using PortfolioManager.Models.Results;
 using PortfolioManager.Models.ToolModels;
 
@@ -52,7 +52,7 @@ public class PersonalIdentificationNumberValidationServiceTests
             Assert.That(result, Is.TypeOf<DataResult<PersonalIdentificationNumberModel>>());
             Assert.That(result.Data, Is.Null);
             Assert.That(result.Errors.First(), Is.EqualTo("Invalid Personal Identification Number"));
-            Assert.That(result.StatusCode, Is.EqualTo(StatusCodes.BadRequest));
+            Assert.That(result.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.BadRequest));
         }
     }
 }

@@ -5,6 +5,7 @@ using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.Commodity;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 
@@ -16,7 +17,7 @@ public class CommodityService(ICommodityRepository commodityRepository, IMapper 
         
         if (commodityEntity is null)
         {
-            return new ErrorStatusResult($"Commodity with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Commodity with id {id} not found", HttpStatusCode.NotFound);
         }
 
         return mapper.Map<Commodity>(commodityEntity);
@@ -56,7 +57,7 @@ public class CommodityService(ICommodityRepository commodityRepository, IMapper 
 
         if (commodityEntity is null)
         {
-            return new ErrorStatusResult($"Commodity with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Commodity with id {id} not found", HttpStatusCode.NotFound);
         }
 
         commodityRepository.Delete(commodityEntity);
@@ -71,7 +72,7 @@ public class CommodityService(ICommodityRepository commodityRepository, IMapper 
 
         if (commodityEntity is null)
         {
-            return new ErrorStatusResult($"Commodity with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Commodity with id {id} not found", HttpStatusCode.NotFound);
         }
 
         mapper.Map(commodityEditModel, commodityEntity);

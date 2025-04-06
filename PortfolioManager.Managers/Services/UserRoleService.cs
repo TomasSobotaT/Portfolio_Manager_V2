@@ -5,6 +5,7 @@ using PortfolioManager.Base.Entities;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Base.Enums;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 
@@ -16,7 +17,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
 
         if (roleEntities is null || roleEntities.Count == 0)
         {
-            return new ErrorStatusResult($"No role found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"No role found", HttpStatusCode.NotFound);
         }
 
         return roleEntities.Select(r => r.Name).ToList();
@@ -26,7 +27,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
     {
         if (await roleManager.RoleExistsAsync(roleName))
         {
-            return new ErrorStatusResult($"Role {roleName} already exists", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Role {roleName} already exists", HttpStatusCode.NotFound);
         }
 
         var result = await roleManager.CreateAsync(new IdentityRole<int> { Name = roleName });
@@ -53,7 +54,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
             return true;
         }
 
-        return new ErrorStatusResult($"Role {roleName} not found", StatusCodes.NotFound);
+        return new ErrorStatusResult($"Role {roleName} not found", HttpStatusCode.NotFound);
     }
 
     public async Task<DataResult<bool>> AssignRoleToUserAsync(int userId, string roleName)
@@ -62,7 +63,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
 
         if (userEntity is null)
         {
-            return new ErrorStatusResult($"User with id {userId} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"User with id {userId} not found", HttpStatusCode.NotFound);
         }
 
         if (await userManager.IsInRoleAsync(userEntity, roleName))
@@ -86,7 +87,7 @@ public class UserRoleService(RoleManager<IdentityRole<int>> roleManager, UserMan
 
         if (userEntity is null)
         {
-            return new ErrorStatusResult($"User with id {userId} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"User with id {userId} not found", HttpStatusCode.NotFound);
         }
 
         if (!await userManager.IsInRoleAsync(userEntity, roleName))

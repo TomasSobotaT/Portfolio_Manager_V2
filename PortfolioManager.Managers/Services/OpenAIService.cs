@@ -1,5 +1,4 @@
 ﻿using PortfolioManager.AI.Repositories.Interfaces;
-using PortfolioManager.Models.Enums;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Results;
 

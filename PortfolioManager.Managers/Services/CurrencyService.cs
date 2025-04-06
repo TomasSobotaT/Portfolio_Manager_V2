@@ -5,6 +5,7 @@ using PortfolioManager.Data.Repositories.Interfaces;
 using PortfolioManager.Managers.Services.Interfaces;
 using PortfolioManager.Models.Models.Currency;
 using PortfolioManager.Models.Results;
+using System.Net;
 
 namespace PortfolioManager.Managers.Services;
 
@@ -16,7 +17,7 @@ public class CurrencyService(ICurrencyRepository currencyRepository, IMapper map
         
         if (currencyEntity is null)
         {
-            return new ErrorStatusResult($"Currency with id {id} not found", StatusCodes.NotFound);
+            return new ErrorStatusResult($"Currency with id {id} not found", HttpStatusCode.NotFound);
         }
 
         return mapper.Map<Currency>(currencyEntity);
